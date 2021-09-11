@@ -14,4 +14,17 @@ class DAO {
         host: host, port: port, user: user, password: password, db: db);
     return await MySqlConnection.connect(settings);
   }
+
+  bool login(String email, password) {
+    bool res = false;
+    getConnection().then((conn) {
+      String sql = 'select email, contrasena from Usuario where email = ?';
+      conn.query(sql, [email]).then((results) {
+        res = results.isNotEmpty;
+        print(results);
+      });
+    });
+    print(res);
+    return res;
+  }
 }
