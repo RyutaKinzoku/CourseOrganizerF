@@ -21,4 +21,11 @@ class DAO {
         'select email, contrasena from Usuario where email = ?', [email]);
     return results.isNotEmpty && results.first[1] == password;
   }
+
+  Future<String> getRole(String email) async {
+    var conn = await getConnection();
+    var results =
+        await conn.query('select rol from Usuario where email = ?', [email]);
+    return results.first[0];
+  }
 }

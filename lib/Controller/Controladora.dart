@@ -9,4 +9,8 @@ class Controladora {
   Future<bool> login(String email, password) async {
     return db.login(email, password);
   }
+
+  Future<String> getRole(String email) async {
+    return db.getRole(email);
+  }
 }

@@ -3,7 +3,9 @@
 // ignore_for_file: file_names, prefer_const_constructors
 
 import 'package:course_organizer/Controller/Controladora.dart';
+import 'package:course_organizer/View/AdminFunctions.dart';
 import 'package:course_organizer/View/StudentFunctions.dart';
+import 'package:course_organizer/View/TeacherFunctions.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -21,13 +23,34 @@ class _MyHomePageState extends State<Login> {
   Future<void> _login() async {
     var control = Controladora();
     if (await control.login(email, password)) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
+      if(await control.getRole(email) == "Estudiante"){
+        Navigator.push(
+          context,
+          MaterialPageRoute(
             builder: (context) => StudentFunctions(
-                  title: 'Funciones',
-                )),
-      );
+              title: 'Funciones',
+            )
+          ),
+        );
+      } else if (await control.getRole(email) == "Docente") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TeacherFunctions(
+              title: 'Funciones',
+            )
+          ),
+        );
+      } else if (await control.getRole(email) == "Administrador"){
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => AdminFunctions(
+              title: 'Funciones',
+            )
+          ),
+        );
+      }
     } else {
       showAlertDialog(context);
     }
