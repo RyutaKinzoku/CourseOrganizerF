@@ -1,5 +1,3 @@
-// ignore: duplicate_ignore
-// ignore: file_names
 // ignore_for_file: file_names, prefer_const_constructors
 
 import 'package:course_organizer/Controller/Controladora.dart';
@@ -23,7 +21,7 @@ class _MyHomePageState extends State<Login> {
   Future<void> _login() async {
     var control = Controladora();
     if (await control.login(email, password)) {
-      if(await control.getRole(email) == "Estudiante"){
+      if(await control.getRol(email) == "Estudiante"){
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -32,7 +30,7 @@ class _MyHomePageState extends State<Login> {
             )
           ),
         );
-      } else if (await control.getRole(email) == "Docente") {
+      } else if (await control.getRol(email) == "Docente") {
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -41,7 +39,7 @@ class _MyHomePageState extends State<Login> {
             )
           ),
         );
-      } else if (await control.getRole(email) == "Administrador"){
+      } else if (await control.getRol(email) == "Administrador"){
         Navigator.push(
           context,
           MaterialPageRoute(

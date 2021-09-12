@@ -1,3 +1,5 @@
+import 'package:course_organizer/Model/Rol.dart';
+import 'package:course_organizer/Model/Usuario.dart';
 import 'package:mysql1/mysql1.dart';
 
 class DAO {
@@ -27,5 +29,19 @@ class DAO {
     var results =
         await conn.query('select rol from Usuario where email = ?', [email]);
     return results.first[0];
+  }
+
+  Future<Usuario?> getUsuario(String email) async {
+    var conn = await getConnection();
+    var results = await conn.query(
+        'select email, contrasena, from Usuario where email = ?', [email]);
+    if (results.first[2] == "Estudiante") {
+      return Usuario(results.first[0], results.first[1], Rol.Estudiante);
+    } else if (results.first[2] == "Docente") {
+      return Usuario(results.first[0], results.first[1], Rol.Docente);
+    } else if (results.first[2] == "Administrador") {
+      return Usuario(results.first[0], results.first[1], Rol.Administrador);
+    }
+    return null;
   }
 }
