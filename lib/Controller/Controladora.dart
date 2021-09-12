@@ -3,7 +3,7 @@
 import 'package:course_organizer/Controller/ManejoUsuarios.dart';
 
 class Controladora {
-  var _manejoUsuarios;
+  var _manejoUsuarios = ManejoUsuarios("");
 
   Future<bool> login(String email, String password) async {
     bool result = await _manejoUsuarios.login(email, password);
