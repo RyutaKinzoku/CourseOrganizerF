@@ -21,32 +21,29 @@ class _MyHomePageState extends State<Login> {
   Future<void> _login() async {
     var control = Controladora();
     if (await control.login(email, password)) {
-      if(await control.getRol(email) == "Estudiante"){
+      if (await control.getRol(email) == "Estudiante") {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => StudentFunctions(
-              title: 'Funciones',
-            )
-          ),
+              builder: (context) => StudentFunctions(
+                    title: 'Funciones de Estudiante',
+                  )),
         );
       } else if (await control.getRol(email) == "Docente") {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => TeacherFunctions(
-              title: 'Funciones',
-            )
-          ),
+              builder: (context) => TeacherFunctions(
+                    title: 'Funciones de Docente',
+                  )),
         );
-      } else if (await control.getRol(email) == "Administrador"){
+      } else if (await control.getRol(email) == "Administrador") {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => AdminFunctions(
-              title: 'Funciones',
-            )
-          ),
+              builder: (context) => AdminFunctions(
+                    title: 'Funciones de Administrador',
+                  )),
         );
       }
     } else {
