@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, prefer_final_fields
 
 import 'package:course_organizer/Model/Rol.dart';
 
@@ -10,6 +10,10 @@ class Usuario {
 
   String getEmail() {
     return _email;
+  }
+
+  String getPassword() {
+    return _password;
   }
 
   Rol getRol() {

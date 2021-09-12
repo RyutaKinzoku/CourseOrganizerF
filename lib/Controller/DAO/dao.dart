@@ -1,3 +1,4 @@
+import 'package:course_organizer/Model/Docente.dart';
 import 'package:course_organizer/Model/Rol.dart';
 import 'package:course_organizer/Model/Usuario.dart';
 import 'package:mysql1/mysql1.dart';
@@ -43,5 +44,42 @@ class DAO {
       return Usuario(results.first[0], results.first[1], Rol.Administrador);
     }
     return null;
+  }
+
+  Future<void> addDocente(String cedula, String nombre, String primerApellido,
+      String segundoApellido, String email) async {
+    var conn = await getConnection();
+    conn.query(
+        'insert into Docente (cedula, nombre, primerApellido, segundoApellido, calificacion, email) values (?, ?, ?, ?, ?, ?)',
+        [cedula, nombre, primerApellido, segundoApellido, 0, email]);
+  }
+
+  Future<void> removeDocente(String cedula) async {
+    var conn = await getConnection();
+    conn.query('delete from Docente where cedula = ?', [cedula]);
+  }
+
+  Future<Docente> getDocente(String cedula) async {
+    var conn = await getConnection();
+    var results =
+        await conn.query('select * from Docente where cedula = ?', [cedula]);
+    return Docente(results.first[0], results.first[1], results.first[2],
+        results.first[3], results.first[4], results.first[5]);
+  }
+
+  Future<void> calificarDocente(String cedula, int calificacion) async {
+    var conn = await getConnection();
+    conn.query('update Docente set calificacion = ? where `cedula` = ?;',
+        [calificacion, cedula]);
+  }
+
+  Future<List<Docente>> getDocentes() async {
+    List<Docente> docentes = [];
+    var conn = await getConnection();
+    var results = await conn.query('select * from Docente where cedula');
+    for (var row in results) {
+      docentes.add(Docente(row[0], row[1], row[2], row[3], row[4], row[5]));
+    }
+    return docentes;
   }
 }

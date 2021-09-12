@@ -1,9 +1,12 @@
-// ignore_for_file: file_names, prefer_typing_uninitialized_variables
+// ignore_for_file: file_names, prefer_typing_uninitialized_variables, prefer_final_fields
 
+import 'package:course_organizer/Controller/ManejoDocentes.dart';
 import 'package:course_organizer/Controller/ManejoUsuarios.dart';
+import 'package:course_organizer/Model/Docente.dart';
 
 class Controladora {
   var _manejoUsuarios = ManejoUsuarios("");
+  var _manejoDocentes = ManejoDocentes();
 
   Future<bool> login(String email, String password) async {
     bool result = await _manejoUsuarios.login(email, password);
@@ -16,4 +19,28 @@ class Controladora {
   Future<String> getRol(String email) async {
     return _manejoUsuarios.getRol(email);
   }
+
+  //Docente
+  void addDocente(String cedula, String nombre, String primerApellido,
+      String segundoApellido, String email) {
+    _manejoDocentes.add(cedula, nombre, primerApellido, segundoApellido, email);
+  }
+
+  void removeDocente(String cedula) {
+    _manejoDocentes.remove(cedula);
+  }
+
+  Future<Docente> getDocente(String cedula) async {
+    return await _manejoDocentes.get(cedula);
+  }
+
+  void calificarDocente(String cedula, int calificacion) {
+    _manejoDocentes.calificar(cedula, calificacion);
+  }
+
+  Future<List<Docente>> getDocentes(String cedula) async {
+    return await _manejoDocentes.getAll();
+  }
+
+  // Estudiante
 }
