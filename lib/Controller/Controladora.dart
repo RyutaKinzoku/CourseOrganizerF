@@ -6,7 +6,7 @@ import 'package:course_organizer/Controller/DAO/dao.dart';
 
 class Controladora {
   var db = DAO();
-  bool login(String email, password) {
+  Future<bool> login(String email, password) async {
     return db.login(email, password);
   }
 }

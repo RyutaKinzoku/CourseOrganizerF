@@ -18,9 +18,9 @@ class Login extends StatefulWidget {
 class _MyHomePageState extends State<Login> {
   String email = '', password = '';
 
-  void _login() {
+  Future<void> _login() async {
     var control = Controladora();
-    if (control.login(email, password)) {
+    if (await control.login(email, password)) {
       Navigator.push(
         context,
         MaterialPageRoute(
