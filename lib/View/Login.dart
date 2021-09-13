@@ -17,9 +17,9 @@ class Login extends StatefulWidget {
 
 class _MyHomePageState extends State<Login> {
   String email = '', password = '';
+  var control = Controladora();
 
   Future<void> _login() async {
-    var control = Controladora();
     if (await control.login(email, password)) {
       if (await control.getRol(email) == "Estudiante") {
         Navigator.push(

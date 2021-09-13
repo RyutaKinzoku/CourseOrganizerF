@@ -116,7 +116,7 @@ class DAO {
   Future<List<Estudiante>> getEstudiantes() async {
     List<Estudiante> estudiantes = [];
     var conn = await getConnection();
-    var results = await conn.query('select * from Docente');
+    var results = await conn.query('select * from Estudiante');
     for (var row in results) {
       estudiantes
           .add(Estudiante(row[0], row[1], row[2], row[3], row[4], row[5]));

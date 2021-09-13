@@ -67,6 +67,16 @@ class Controladora {
     return await _manejoEstudiantes.getAll();
   }
 
+  Future<List<String>> getNombresEstudiantes() async {
+    List<String> nombresEstudiantes = [];
+    List<Estudiante> estudiantes = await getEstudiantes();
+
+    for (var e in estudiantes) {
+      nombresEstudiantes.add(e.getNombre()+" "+e.getPrimerApellido()+" "+e.getSegundoApellido());
+    }
+    return nombresEstudiantes;
+  }
+
   //Cursos
   void addCurso(
       String idCurso, String nombre, String grado, List<String> horario) {
@@ -77,10 +87,15 @@ class Controladora {
     _manejoCursos.remove(idCurso);
   }
 
+/*
+  Future<Estudiante> getEstudiante(String cedula) async {
+    return await _manejoEstudiantes.get(cedula);
+  }
+
   Future<Curso> getCurso(String idCurso) async {
     return await _manejoCursos.get(idCurso);
   }
-/*
+
   Future<List<Curso>> getCursos() async {
     return await _manejoCursos.getAll();
   }
