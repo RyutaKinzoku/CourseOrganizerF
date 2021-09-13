@@ -10,7 +10,8 @@ class ManejoEstudiantes {
 
   void add(String cedula, String nombre, String primerApellido,
       String segundoApellido, String grado, String email) {
-    _db.addEstudiante(cedula, nombre, primerApellido, segundoApellido, grado, email);
+    _db.addEstudiante(
+        cedula, nombre, primerApellido, segundoApellido, grado, email);
   }
 
   void remove(String cedula) {

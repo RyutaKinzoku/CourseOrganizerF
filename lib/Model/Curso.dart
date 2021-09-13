@@ -2,14 +2,10 @@
 import 'package:course_organizer/Model/Noticia.dart';
 
 class Curso {
-  String _idCurso, _nombre, _grado, _horaInicio, _horaFin;
-  List<String> _dias;
-  List<Noticia> _noticias = [];
-  List<String> _mensajes = [];
-  List<String> _tareas = [];
+  String _idCurso, _nombre, _grado;
+  List<String> _horario;
 
-  Curso(this._idCurso, this._nombre, this._grado, this._horaInicio,
-      this._horaFin, this._dias);
+  Curso(this._idCurso, this._nombre, this._grado, this._horario);
 
   String getIdCurso() {
     return _idCurso;
@@ -23,24 +19,7 @@ class Curso {
     return _grado;
   }
 
-  String getHoraInicio() {
-    return _horaInicio;
-  }
-
-  String getHoraFin() {
-    return _horaFin;
-  }
-
-  List<Noticia> getNoticias() {
-    return _noticias;
-  }
-
-  void eliminarNoticias(String pIdNoticia) {
-    _noticias.removeWhere((noticia) => noticia.getIdNoticia() == pIdNoticia);
-  }
-
-  void setNoticia(String pIdNoticia, String pMensaje) {
-    var noticia =
-        _noticias.where((noticia) => noticia.getIdNoticia() == pIdNoticia);
+  List<String> getHorario() {
+    return _horario;
   }
 }

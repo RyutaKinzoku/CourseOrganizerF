@@ -13,7 +13,6 @@ class DAO {
 
   DAO();
 
-  //Usuarios
   Future<MySqlConnection> getConnection() async {
     var settings = ConnectionSettings(
         host: host, port: port, user: user, password: password, db: db);
@@ -37,7 +36,7 @@ class DAO {
   Future<Usuario?> getUsuario(String email) async {
     var conn = await getConnection();
     var results = await conn.query(
-        'select email, contrasena, rol from Usuario where email = ?', [email]);
+        'select email, contrasena, from Usuario where email = ?', [email]);
     if (results.first[2] == "Estudiante") {
       return Usuario(results.first[0], results.first[1], Rol.Estudiante);
     } else if (results.first[2] == "Docente") {
@@ -85,9 +84,15 @@ class DAO {
     }
     return docentes;
   }
-  
+
   //Estudiante
-  Future<void> addEstudiante(String cedula, String nombre, String primerApellido, String segundoApellido, String grado, String email) async {
+  Future<void> addEstudiante(
+      String cedula,
+      String nombre,
+      String primerApellido,
+      String segundoApellido,
+      String grado,
+      String email) async {
     var conn = await getConnection();
     conn.query(
         'insert into Estudiante (cedula, nombre, primerApellido, segundoApellido, grado, email) values (?, ?, ?, ?, ?, ?)',
@@ -102,7 +107,7 @@ class DAO {
   Future<Estudiante> getEstudiante(String cedula) async {
     var conn = await getConnection();
     var results =
-        await conn.query('select * from Estudiante where cedula = ?', [cedula]);
+        await conn.query('select * from Docente where cedula = ?', [cedula]);
     return Estudiante(results.first[0], results.first[1], results.first[2],
         results.first[3], results.first[4], results.first[5]);
   }
@@ -110,10 +115,31 @@ class DAO {
   Future<List<Estudiante>> getEstudiantes() async {
     List<Estudiante> estudiantes = [];
     var conn = await getConnection();
-    var results = await conn.query('select * from Estudiante');
+    var results = await conn.query('select * from Docente where cedula');
     for (var row in results) {
-      estudiantes.add(Estudiante(row[0], row[1], row[2], row[3], row[4], row[5]));
+      estudiantes
+          .add(Estudiante(row[0], row[1], row[2], row[3], row[4], row[5]));
     }
     return estudiantes;
+  }
+
+  Future<void> addCurso(
+      String idCurso, String nombre, String grado, List<String> horario) async {
+    var conn = await getConnection();
+    conn.query(
+        'insert into Curso (ID_Curso, nombre, gradoEscolar) values (?, ?, ?)',
+        [idCurso, nombre, grado]);
+    horario.forEach((tiempo) {
+      var partes = tiempo.split(" ");
+      conn.query(
+          'insert into CursoxDia (ID_Curso, dia, horaInicio, horaFin) values (?, ?, ?, ?)',
+          [idCurso, partes[0], partes[1], grado[2]]);
+    });
+  }
+
+  Future<void> removeCurso(String idCurso) async {
+    var conn = await getConnection();
+    conn.query('delete from Curso where ID_Curso = ?', [idCurso]);
+    conn.query('delete from CursoPorDia where ID_Curso = ?', [idCurso]);
   }
 }

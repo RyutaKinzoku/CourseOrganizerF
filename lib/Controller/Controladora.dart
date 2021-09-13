@@ -3,6 +3,7 @@
 import 'package:course_organizer/Controller/ManejoDocentes.dart';
 import 'package:course_organizer/Controller/ManejoUsuarios.dart';
 import 'package:course_organizer/Controller/ManejoEstudiantes.dart';
+import 'package:course_organizer/Controller/ManejoCursos.dart';
 import 'package:course_organizer/Model/Docente.dart';
 import 'package:course_organizer/Model/Estudiante.dart';
 
@@ -10,6 +11,7 @@ class Controladora {
   var _manejoUsuarios = ManejoUsuarios("");
   var _manejoDocentes = ManejoDocentes();
   var _manejoEstudiantes = ManejoEstudiantes();
+  var _manejoCursos = ManejoCursos();
 
   Future<bool> login(String email, String password) async {
     bool result = await _manejoUsuarios.login(email, password);
@@ -63,4 +65,23 @@ class Controladora {
   Future<List<Estudiante>> getEstudiantes(String cedula) async {
     return await _manejoEstudiantes.getAll();
   }
+
+  //Cursos
+  void addCurso(
+      String idCurso, String nombre, String grado, List<String> horario) {
+    _manejoCursos.add(idCurso, nombre, grado, horario);
+  }
+
+  void removeCurso(String idCurso) {
+    _manejoCursos.remove(idCurso);
+  }
+/*
+  Future<Estudiante> getEstudiante(String cedula) async {
+    return await _manejoEstudiantes.get(cedula);
+  }
+
+  Future<List<Estudiante>> getEstudiantes(String cedula) async {
+    return await _manejoEstudiantes.getAll();
+  }
+  */
 }
