@@ -13,6 +13,7 @@ class DAO {
 
   DAO();
 
+  //Usuarios
   Future<MySqlConnection> getConnection() async {
     var settings = ConnectionSettings(
         host: host, port: port, user: user, password: password, db: db);
@@ -36,7 +37,7 @@ class DAO {
   Future<Usuario?> getUsuario(String email) async {
     var conn = await getConnection();
     var results = await conn.query(
-        'select email, contrasena, from Usuario where email = ?', [email]);
+        'select email, contrasena, rol from Usuario where email = ?', [email]);
     if (results.first[2] == "Estudiante") {
       return Usuario(results.first[0], results.first[1], Rol.Estudiante);
     } else if (results.first[2] == "Docente") {
@@ -101,7 +102,7 @@ class DAO {
   Future<Estudiante> getEstudiante(String cedula) async {
     var conn = await getConnection();
     var results =
-        await conn.query('select * from Docente where cedula = ?', [cedula]);
+        await conn.query('select * from Estudiante where cedula = ?', [cedula]);
     return Estudiante(results.first[0], results.first[1], results.first[2],
         results.first[3], results.first[4], results.first[5]);
   }
@@ -109,7 +110,7 @@ class DAO {
   Future<List<Estudiante>> getEstudiantes() async {
     List<Estudiante> estudiantes = [];
     var conn = await getConnection();
-    var results = await conn.query('select * from Docente where cedula');
+    var results = await conn.query('select * from Estudiante');
     for (var row in results) {
       estudiantes.add(Estudiante(row[0], row[1], row[2], row[3], row[4], row[5]));
     }

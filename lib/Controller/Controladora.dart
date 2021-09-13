@@ -2,7 +2,7 @@
 
 import 'package:course_organizer/Controller/ManejoDocentes.dart';
 import 'package:course_organizer/Controller/ManejoUsuarios.dart';
-import 'package:course_organizer/Controller/manejoEstudiantes.dart';
+import 'package:course_organizer/Controller/ManejoEstudiantes.dart';
 import 'package:course_organizer/Model/Docente.dart';
 import 'package:course_organizer/Model/Estudiante.dart';
 
