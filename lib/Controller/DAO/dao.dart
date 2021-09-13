@@ -53,8 +53,13 @@ class DAO {
 
   //Docente
   Future<void> addDocente(String cedula, String nombre, String primerApellido,
-      String segundoApellido, String email) async {
+      String segundoApellido, String email, String contrasena) async {
     var conn = await getConnection();
+    conn.query('insert into Usuario (email, contrasena, rol) values (?, ?, ?)',
+        [email, contrasena, "Docente"]);
+    conn.query(
+        'insert into Persona (cedula, nombre, primerApellido, segundoApellido, email) values (?, ?, ?, ?, ?)',
+        [cedula, nombre, primerApellido, segundoApellido, email]);
     conn.query(
         'insert into Docente (cedula, nombre, primerApellido, segundoApellido, calificacion, email) values (?, ?, ?, ?, ?, ?)',
         [cedula, nombre, primerApellido, segundoApellido, 0, email]);
@@ -89,6 +94,17 @@ class DAO {
     return docentes;
   }
 
+  Future<void> setDocentes(String cedula, String nombre, String primerApellido,
+      String segundoApellido, String email) async {
+    var conn = await getConnection();
+    conn.query(
+        'update Docente set nombre = ?, primerApellido = ?, segundoApellido = ?, email = ? where cedula = ?;',
+        [nombre, primerApellido, segundoApellido, email, cedula]);
+    conn.query(
+        'update Persona set nombre = ?, primerApellido = ?, segundoApellido = ? where cedula = ?;',
+        [nombre, primerApellido, segundoApellido, cedula]);
+  }
+
   //Estudiante
   Future<void> addEstudiante(
       String cedula,
@@ -96,8 +112,14 @@ class DAO {
       String primerApellido,
       String segundoApellido,
       String grado,
-      String email) async {
+      String email,
+      String contrasena) async {
     var conn = await getConnection();
+    conn.query('insert into Usuario (email, contrasena, rol) values (?, ?, ?)',
+        [email, contrasena, "Docente"]);
+    conn.query(
+        'insert into Persona (cedula, nombre, primerApellido, segundoApellido, email) values (?, ?, ?, ?, ?)',
+        [cedula, nombre, primerApellido, segundoApellido, email]);
     conn.query(
         'insert into Estudiante (cedula, nombre, primerApellido, segundoApellido, grado, email) values (?, ?, ?, ?, ?, ?)',
         [cedula, nombre, primerApellido, segundoApellido, grado, email]);
@@ -127,6 +149,23 @@ class DAO {
     return estudiantes;
   }
 
+  Future<void> setEstudiantes(
+      String cedula,
+      String nombre,
+      String primerApellido,
+      String segundoApellido,
+      String grado,
+      String email) async {
+    var conn = await getConnection();
+    conn.query(
+        'update Estudiante set nombre = ?, primerApellido = ?, segundoApellido = ?, gradoEscolar = ?, email = ? where cedula = ?;',
+        [nombre, primerApellido, segundoApellido, email, grado, cedula]);
+    conn.query(
+        'update Persona set nombre = ?, primerApellido = ?, segundoApellido = ? where cedula = ?;',
+        [nombre, primerApellido, segundoApellido, cedula]);
+  }
+
+  //Cursos
   Future<void> addCurso(
       String nombre, String grado, List<String> horario) async {
     var conn = await getConnection();

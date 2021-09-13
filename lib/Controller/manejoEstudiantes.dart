@@ -2,6 +2,7 @@
 
 import 'package:course_organizer/Controller/DAO/dao.dart';
 import 'package:course_organizer/Model/Estudiante.dart';
+import 'dart:math';
 
 class ManejoEstudiantes {
   var _db = DAO();
@@ -10,8 +11,13 @@ class ManejoEstudiantes {
 
   void add(String cedula, String nombre, String primerApellido,
       String segundoApellido, String grado, String email) {
-    _db.addEstudiante(
-        cedula, nombre, primerApellido, segundoApellido, grado, email);
+    String contrasena = "";
+    var rng = Random();
+    for (var i = 0; i < 4; i++) {
+      contrasena = contrasena + rng.nextInt(9).toString();
+    }
+    _db.addEstudiante(cedula, nombre, primerApellido, segundoApellido, grado,
+        email, contrasena);
   }
 
   void remove(String cedula) {
@@ -24,5 +30,11 @@ class ManejoEstudiantes {
 
   Future<List<Estudiante>> getAll() async {
     return await _db.getEstudiantes();
+  }
+
+  void set(String cedula, String nombre, String primerApellido,
+      String segundoApellido, String grado, String email) {
+    _db.setEstudiantes(
+        cedula, nombre, primerApellido, segundoApellido, grado, email);
   }
 }

@@ -51,6 +51,11 @@ class Controladora {
     return await _manejoDocentes.getAll();
   }
 
+  void setDocentes(String cedula, String nombre, String primerApellido,
+      String segundoApellido, String email) {
+    _manejoDocentes.set(cedula, nombre, primerApellido, segundoApellido, email);
+  }
+
   // Estudiante
   void addEstudiante(String cedula, String nombre, String primerApellido,
       String segundoApellido, String grado, String email) {
@@ -82,6 +87,12 @@ class Controladora {
           e.getSegundoApellido());
     }
     return nombresEstudiantes;
+  }
+
+  void setEstudiantes(String cedula, String nombre, String primerApellido,
+      String segundoApellido, String grado, String email) {
+    _manejoEstudiantes.set(
+        cedula, nombre, primerApellido, segundoApellido, grado, email);
   }
 
   //Cursos
