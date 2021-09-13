@@ -3,6 +3,9 @@ import 'package:course_organizer/Model/Estudiante.dart';
 import 'package:course_organizer/Model/Rol.dart';
 import 'package:course_organizer/Model/Usuario.dart';
 import 'package:course_organizer/Model/Curso.dart';
+import 'package:course_organizer/Model/Mensaje.dart';
+import 'package:course_organizer/Model/Tarea.dart';
+import 'package:course_organizer/Model/Noticia.dart';
 import 'package:mysql1/mysql1.dart';
 
 class DAO {
@@ -125,11 +128,11 @@ class DAO {
   }
 
   Future<void> addCurso(
-      String idCurso, String nombre, String grado, List<String> horario) async {
+      String nombre, String grado, List<String> horario) async {
     var conn = await getConnection();
-    conn.query(
-        'insert into Curso (ID_Curso, nombre, gradoEscolar) values (?, ?, ?)',
-        [idCurso, nombre, grado]);
+    var idCurso = conn.query(
+        'insert into Curso (nombre, gradoEscolar) values (?, ?); SELECT LAST_INSERT_ID()',
+        [nombre, grado]);
     horario.forEach((tiempo) {
       var partes = tiempo.split(" ");
       conn.query(
@@ -189,5 +192,102 @@ class DAO {
           'update CursoPorDia set dia = ?, horaInicio = ?, horaFin = ? where idCurso = ? and dia = "Martes"',
           [idCurso, partes[0], partes[1], grado[2]]);
     });
+  }
+
+  //Mensajes
+  Future<void> addMensaje(String contenido, String fechaEnvio, String idCurso,
+      String emisor) async {
+    var conn = await getConnection();
+    conn.query(
+        'insert into Mensaje (contenido, fechaEnvio, idCurso, emisor) values (?, ?, ?, ?)',
+        [contenido, fechaEnvio, idCurso, emisor]);
+  }
+
+  Future<List<Mensaje>> getAllMensajes(String idCurso) async {
+    List<Mensaje> mensajes = [];
+    var conn = await getConnection();
+    var results = await conn
+        .query('select * from Mensajes where ID_Curso = ?', [idCurso]);
+    for (var row in results) {
+      mensajes.add(Mensaje(row[0], row[1], row[2], row[3], row[4]));
+    }
+    return mensajes;
+  }
+
+  //Noticias
+  Future<void> addNoticia(String mensaje, String idCurso) async {
+    var conn = await getConnection();
+    conn.query('insert into Noticia (mensaje, ID_Curso) values (?, ?)',
+        [mensaje, idCurso]);
+  }
+
+  Future<void> removeNoticia(String idNoticia) async {
+    var conn = await getConnection();
+    conn.query('delete from Noticia where ID_Noticia = ?', [idNoticia]);
+  }
+
+  Future<Noticia> getNoticia(String idNoticia) async {
+    var conn = await getConnection();
+    var results = await conn
+        .query('select * from Noticia where ID_Noticia = ?', [idNoticia]);
+    return Noticia(results.first[0], results.first[1], results.first[2]);
+  }
+
+  Future<List<Noticia>> getAllNoticias(String idCurso) async {
+    List<Noticia> noticias = [];
+    var conn = await getConnection();
+    var results =
+        await conn.query('select * from Noticia where ID_Curso = ?', [idCurso]);
+    for (var row in results) {
+      noticias.add(Noticia(row[0], row[1], row[2]));
+    }
+    return noticias;
+  }
+
+  Future<void> setNoticia(String idNoticia, String mensaje) async {
+    var conn = await getConnection();
+    conn.query('update Noticia set mensaje = ? where ID_Noticia = ?',
+        [mensaje, idNoticia]);
+  }
+
+  //Tareas
+  Future<void> addTarea(String descripcion, String fechaEntrega, String idCurso,
+      String titulo) async {
+    var conn = await getConnection();
+    conn.query(
+        'insert into Tarea (descripcion, fechaEntrega, ID_Curso, titulo) values (?, ?, ?, ?)',
+        [descripcion, fechaEntrega, idCurso, titulo]);
+  }
+
+  Future<void> removeTarea(String idTarea) async {
+    var conn = await getConnection();
+    conn.query('delete from Tarea where ID_Tarea = ?', [idTarea]);
+  }
+
+  Future<Tarea> getTarea(String idTarea) async {
+    var conn = await getConnection();
+    var results =
+        await conn.query('select * from Tarea where ID_Tarea = ?', [idTarea]);
+    return Tarea(results.first[0], results.first[1], results.first[2],
+        results.first[3], results.first[4]);
+  }
+
+  Future<List<Tarea>> getAllTareas(String idCurso) async {
+    List<Tarea> tareas = [];
+    var conn = await getConnection();
+    var results =
+        await conn.query('select * from Tarea where ID_Curso = ?', [idCurso]);
+    for (var row in results) {
+      tareas.add(Tarea(row[0], row[1], row[2], row[3], row[4]));
+    }
+    return tareas;
+  }
+
+  Future<void> setTarea(String idTarea, String descripcion, String fechaEntrega,
+      String titulo) async {
+    var conn = await getConnection();
+    conn.query(
+        'update Tarea set descripcion = ?, fechaEntrega = ?, titulo = ? where ID_Tarea = ?',
+        [descripcion, fechaEntrega, titulo, idTarea]);
   }
 }

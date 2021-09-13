@@ -1,9 +1,9 @@
 // ignore_for_file: file_names
 class Tarea {
-  String _idTarea, _descripcion, _idCurso;
-  DateTime _fechaEntrega;
+  String _idTarea, _descripcion, _fechaEntrega, _idCurso, _titulo;
 
-  Tarea(this._idTarea, this._descripcion, this._fechaEntrega, this._idCurso);
+  Tarea(this._idTarea, this._descripcion, this._fechaEntrega, this._idCurso,
+      this._titulo);
 
   String getIdTarea() {
     return _idTarea;
@@ -13,11 +13,15 @@ class Tarea {
     return _descripcion;
   }
 
-  DateTime getFechaEntrega() {
+  String getFechaEntrega() {
     return _fechaEntrega;
   }
 
   String getIdCurso() {
     return _idCurso;
+  }
+
+  String getTitulo() {
+    return _titulo;
   }
 }

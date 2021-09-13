@@ -1,9 +1,9 @@
 // ignore_for_file: file_names, prefer_final_fields
 
 class Noticia {
-  String _idNoticia, _mensaje;
+  String _idNoticia, _mensaje, _idCurso;
 
-  Noticia(this._idNoticia, this._mensaje);
+  Noticia(this._idNoticia, this._mensaje, this._idCurso);
 
   String getIdNoticia() {
     return _idNoticia;
@@ -13,7 +13,7 @@ class Noticia {
     return _mensaje;
   }
 
-  void setMensaje(String pMensaje) {
-    _mensaje = pMensaje;
+  String getIdCurso() {
+    return _idCurso;
   }
 }

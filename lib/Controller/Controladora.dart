@@ -85,9 +85,8 @@ class Controladora {
   }
 
   //Cursos
-  void addCurso(
-      String idCurso, String nombre, String grado, List<String> horario) {
-    _manejoCursos.add(idCurso, nombre, grado, horario);
+  void addCurso(String nombre, String grado, List<String> horario) {
+    _manejoCursos.add(nombre, grado, horario);
   }
 
   void removeCurso(String idCurso) {
@@ -134,17 +133,14 @@ class Controladora {
     _manejoCursos.addMensaje(contenido, fechaEnvio, idCurso, emisor);
   }
 
-  Future<Mensaje> getMensaje(String idMensaje) async {
-    return await _manejoCursos.getMensaje(idMensaje);
-  }
-
   Future<List<Mensaje>> getMensajes(String idCurso) async {
     return await _manejoCursos.getAllMensajes(idCurso);
   }
 
   //Tareas
-  void addTarea(String descripcion, String fechaEntrega, String idCurso) {
-    _manejoCursos.addTarea(descripcion, fechaEntrega, idCurso);
+  void addTarea(
+      String descripcion, String fechaEntrega, String idCurso, String titulo) {
+    _manejoCursos.addTarea(descripcion, fechaEntrega, idCurso, titulo);
   }
 
   void removeTarea(String idTarea) {
@@ -159,7 +155,8 @@ class Controladora {
     return await _manejoCursos.getAllTareas(idCurso);
   }
 
-  void setTarea(String descripcion, String fechaEntrega, String idCurso) {
-    _manejoCursos.setTarea(descripcion, fechaEntrega, idCurso);
+  void setTarea(
+      String idTarea, String descripcion, String fechaEntrega, String titulo) {
+    _manejoCursos.setTarea(idTarea, descripcion, fechaEntrega, titulo);
   }
 }

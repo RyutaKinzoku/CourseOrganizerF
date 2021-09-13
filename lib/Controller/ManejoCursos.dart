@@ -11,8 +11,8 @@ class ManejoCursos {
 
   ManejoCursos();
 
-  void add(String idCurso, String nombre, String grado, List<String> horario) {
-    _db.addCurso(idCurso, nombre, grado, horario);
+  void add(String nombre, String grado, List<String> horario) {
+    _db.addCurso(nombre, grado, horario);
   }
 
   void remove(String idCurso) {
@@ -48,7 +48,7 @@ class ManejoCursos {
   }
 
   void setNoticia(String idNoticia, String mensaje, String idCurso) {
-    _db.setNoticia(idCurso, mensaje, idCurso);
+    _db.setNoticia(idNoticia, mensaje);
   }
 
   void addMensaje(
@@ -56,16 +56,13 @@ class ManejoCursos {
     _db.addMensaje(contenido, fechaEnvio, idCurso, emisor);
   }
 
-  Future<Mensaje> getMensaje(String idMensaje) async {
-    return await _db.getMensaje(idMensaje);
-  }
-
   Future<List<Mensaje>> getAllMensajes(String idCurso) async {
     return await _db.getAllMensajes(idCurso);
   }
 
-  void addTarea(String descripcion, String fechaEntrega, String idCurso) {
-    _db.addTarea(descripcion, fechaEntrega, idCurso);
+  void addTarea(
+      String descripcion, String fechaEntrega, String idCurso, String titulo) {
+    _db.addTarea(descripcion, fechaEntrega, idCurso, titulo);
   }
 
   void removeTarea(String idTarea) {
@@ -80,7 +77,8 @@ class ManejoCursos {
     return await _db.getAllTareas(idCurso);
   }
 
-  void setTarea(String descripcion, String fechaEntrega, String idCurso) {
-    _db.setTarea(descripcion, fechaEntrega, idCurso);
+  void setTarea(
+      String idTarea, String descripcion, String fechaEntrega, String titulo) {
+    _db.setTarea(idTarea, descripcion, fechaEntrega, titulo);
   }
 }

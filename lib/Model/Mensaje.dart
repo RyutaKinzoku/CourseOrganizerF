@@ -16,4 +16,12 @@ class Mensaje {
   String getFechaEnvio() {
     return _fechaEnvio;
   }
+
+  String getIdCurso() {
+    return _idCurso;
+  }
+
+  String getEmisor() {
+    return _emisor;
+  }
 }
