@@ -19,8 +19,12 @@ class ManejoCursos {
   Future<Curso> get(String idCurso) async {
     return await _db.getCurso(idCurso);
   }
-/*
+
   Future<List<Curso>> getAll() async {
     return await _db.getCursos();
-  }*/
+  }
+
+  void set(String idCurso, String nombre, String grado, List<String> horario) {
+    _db.setCurso(idCurso, nombre, grado, horario);
+  }
 }

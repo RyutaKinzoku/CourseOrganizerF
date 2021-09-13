@@ -5,6 +5,7 @@ import 'package:course_organizer/Controller/ManejoUsuarios.dart';
 import 'package:course_organizer/Controller/ManejoEstudiantes.dart';
 import 'package:course_organizer/Controller/ManejoCursos.dart';
 import 'package:course_organizer/Model/Curso.dart';
+import 'package:course_organizer/Model/Mensaje.dart';
 import 'package:course_organizer/Model/Docente.dart';
 import 'package:course_organizer/Model/Estudiante.dart';
 
@@ -72,7 +73,11 @@ class Controladora {
     List<Estudiante> estudiantes = await getEstudiantes();
 
     for (var e in estudiantes) {
-      nombresEstudiantes.add(e.getNombre()+" "+e.getPrimerApellido()+" "+e.getSegundoApellido());
+      nombresEstudiantes.add(e.getNombre() +
+          " " +
+          e.getPrimerApellido() +
+          " " +
+          e.getSegundoApellido());
     }
     return nombresEstudiantes;
   }
@@ -87,11 +92,6 @@ class Controladora {
     _manejoCursos.remove(idCurso);
   }
 
-/*
-  Future<Estudiante> getEstudiante(String cedula) async {
-    return await _manejoEstudiantes.get(cedula);
-  }
-
   Future<Curso> getCurso(String idCurso) async {
     return await _manejoCursos.get(idCurso);
   }
@@ -99,5 +99,13 @@ class Controladora {
   Future<List<Curso>> getCursos() async {
     return await _manejoCursos.getAll();
   }
-  */
+
+  void setCurso(
+      String idCurso, String nombre, String grado, List<String> horario) {
+    _manejoCursos.set(idCurso, nombre, grado, horario);
+  }
+
+  /*Future<List<Mensaje>> getMensaje(String idCurso) async {
+    return await _manejoCursos.getAll();
+  }*/
 }

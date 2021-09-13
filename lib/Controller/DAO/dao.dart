@@ -133,8 +133,8 @@ class DAO {
     horario.forEach((tiempo) {
       var partes = tiempo.split(" ");
       conn.query(
-          'insert into CursoxDia (ID_Curso, dia, horaInicio, horaFin) values (?, ?, ?, ?)',
-          [idCurso, partes[0], partes[1], grado[2]]);
+          'insert into CursoPorDia (ID_Curso, dia, horaInicio, horaFin) values (?, ?, ?, ?)',
+          [idCurso, partes[1], partes[2], partes[3]]);
     });
   }
 
@@ -152,21 +152,42 @@ class DAO {
         .query('select * from CursoPorDia where ID_Curso = ?', [idCurso]);
     List<String> horario = [];
     for (var row in results2) {
-      horario
-          .add("$row[1] $row[2] $row[3]"); //Estructura "Dia HoraInicio HoraFin"
+      horario.add(
+          "$row[4] $row[1] $row[2] $row[3]"); //Estructura "ID Dia HoraInicio HoraFin"
     }
     return Curso(results1.first[0], results1.first[1], results1.first[2],
         horario); //Curso(ID_Curso, nombre, gradoEscolar, horario)
   }
 
-  /*Future<List<Curso>> getCursos() async {
+  Future<List<Curso>> getCursos() async {
     List<Curso> cursos = [];
     var conn = await getConnection();
-    var results = await conn.query('select * from Curso where cedula');
-    for (var row in results) {
-      estudiantes
-          .add(Estudiante(row[0], row[1], row[2], row[3], row[4], row[5]));
+    var results = await conn.query('select * from Curso');
+    for (var curso in results) {
+      List<String> horario = [];
+      var results2 = await conn
+          .query('select * from CursoPorDia where ID_Curso = ?', [curso[0]]);
+      for (var row in results2) {
+        horario.add(
+            "$row[4] $row[1] $row[2] $row[3]"); //Estructura "ID Dia HoraInicio HoraFin"
+      }
+      cursos.add(Curso(curso[0], curso[1], curso[2],
+          horario)); //Curso(ID_Curso, nombre, gradoEscolar, horario)
     }
-    return estudiantes;
-  }*/
+    return cursos;
+  }
+
+  Future<void> setCurso(
+      String idCurso, String nombre, String grado, List<String> horario) async {
+    var conn = await getConnection();
+    conn.query(
+        'update Curso set nombre = ?, gradoEscolar = ? where ID_Curso = ?',
+        [nombre, grado, idCurso]);
+    horario.forEach((tiempo) {
+      var partes = tiempo.split(" ");
+      conn.query(
+          'update CursoPorDia set dia = ?, horaInicio = ?, horaFin = ? where idCurso = ? and dia = "Martes"',
+          [idCurso, partes[0], partes[1], grado[2]]);
+    });
+  }
 }
