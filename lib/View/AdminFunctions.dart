@@ -29,8 +29,8 @@ class _AdminFunctionsPage extends State<AdminFunctions> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             MaterialButton(
-              minWidth: 200.0,
-              height: 40.0,
+              minWidth: 250.0,
+              height: 50.0,
               onPressed: () {
                 Navigator.push(
                   context,
@@ -44,8 +44,8 @@ class _AdminFunctionsPage extends State<AdminFunctions> {
               child: Text('Estudiantes', style: TextStyle(color: Colors.white)),
             ),
             MaterialButton(
-              minWidth: 200.0,
-              height: 40.0,
+              minWidth: 250.0,
+              height: 50.0,
               onPressed: () {
                 Navigator.push(
                   context,
@@ -59,8 +59,8 @@ class _AdminFunctionsPage extends State<AdminFunctions> {
               child: Text('Docentes', style: TextStyle(color: Colors.white)),
             ),
             MaterialButton(
-              minWidth: 200.0,
-              height: 40.0,
+              minWidth: 250.0,
+              height: 50.0,
               onPressed: () {
                 Navigator.push(
                   context,
@@ -74,8 +74,8 @@ class _AdminFunctionsPage extends State<AdminFunctions> {
               child: Text('Cursos', style: TextStyle(color: Colors.white)),
             ),
             MaterialButton(
-              minWidth: 200.0,
-              height: 40.0,
+              minWidth: 250.0,
+              height: 50.0,
               onPressed: () {
                 Navigator.push(
                   context,
