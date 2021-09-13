@@ -23,31 +23,31 @@ class _StudentsListPage extends State<StudentsList> {
 
   @override
   Widget build(BuildContext context) {
-    print(estudiantes);
-    return FutureBuilder(
-      future: getEstudiantes(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else {
-          return Scaffold(
-            appBar: AppBar(title: Text(widget.title)),
-            body: Center(
-              child: ListView.builder(
-                itemCount: estudiantes.length,
-                itemBuilder: (context, index) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: FutureBuilder(
+        future: getEstudiantes(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+                itemCount: snapshot.data.length,
+                itemBuilder: (BuildContext context, int index) {
                   return ListTile(
-                    title: Text(estudiantes[index]),
+                    title: Text(snapshot.data[index]),
                   );
-                },
-              ),
-            ),
-          );
-        }
-      },
+                });
+          } else if (snapshot.hasError) {
+            return const Text('No se encontraron datos');
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
     );
-    return const SizedBox();
+    //return const SizedBox();
   }
 }
