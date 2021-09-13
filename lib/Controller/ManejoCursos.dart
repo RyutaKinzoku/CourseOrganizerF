@@ -15,12 +15,12 @@ class ManejoCursos {
   void remove(String idCurso) {
     _db.removeCurso(idCurso);
   }
-/*
-  Future<Estudiante> get(String cedula) async {
-    return await _db.getEstudiante(cedula);
-  }
 
-  Future<List<Estudiante>> getAll() async {
-    return await _db.getEstudiantes();
+  Future<Curso> get(String idCurso) async {
+    return await _db.getCurso(idCurso);
+  }
+/*
+  Future<List<Curso>> getAll() async {
+    return await _db.getCursos();
   }*/
 }

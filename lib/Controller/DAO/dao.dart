@@ -2,6 +2,7 @@ import 'package:course_organizer/Model/Docente.dart';
 import 'package:course_organizer/Model/Estudiante.dart';
 import 'package:course_organizer/Model/Rol.dart';
 import 'package:course_organizer/Model/Usuario.dart';
+import 'package:course_organizer/Model/Curso.dart';
 import 'package:mysql1/mysql1.dart';
 
 class DAO {
@@ -78,7 +79,7 @@ class DAO {
   Future<List<Docente>> getDocentes() async {
     List<Docente> docentes = [];
     var conn = await getConnection();
-    var results = await conn.query('select * from Docente where cedula');
+    var results = await conn.query('select * from Docente');
     for (var row in results) {
       docentes.add(Docente(row[0], row[1], row[2], row[3], row[4], row[5]));
     }
@@ -107,7 +108,7 @@ class DAO {
   Future<Estudiante> getEstudiante(String cedula) async {
     var conn = await getConnection();
     var results =
-        await conn.query('select * from Docente where cedula = ?', [cedula]);
+        await conn.query('select * from Estudiante where cedula = ?', [cedula]);
     return Estudiante(results.first[0], results.first[1], results.first[2],
         results.first[3], results.first[4], results.first[5]);
   }
@@ -115,7 +116,7 @@ class DAO {
   Future<List<Estudiante>> getEstudiantes() async {
     List<Estudiante> estudiantes = [];
     var conn = await getConnection();
-    var results = await conn.query('select * from Docente where cedula');
+    var results = await conn.query('select * from Docente');
     for (var row in results) {
       estudiantes
           .add(Estudiante(row[0], row[1], row[2], row[3], row[4], row[5]));
@@ -142,4 +143,30 @@ class DAO {
     conn.query('delete from Curso where ID_Curso = ?', [idCurso]);
     conn.query('delete from CursoPorDia where ID_Curso = ?', [idCurso]);
   }
+
+  Future<Curso> getCurso(String idCurso) async {
+    var conn = await getConnection();
+    var results1 =
+        await conn.query('select * from Curso where ID_Curso = ?', [idCurso]);
+    var results2 = await conn
+        .query('select * from CursoPorDia where ID_Curso = ?', [idCurso]);
+    List<String> horario = [];
+    for (var row in results2) {
+      horario
+          .add("$row[1] $row[2] $row[3]"); //Estructura "Dia HoraInicio HoraFin"
+    }
+    return Curso(results1.first[0], results1.first[1], results1.first[2],
+        horario); //Curso(ID_Curso, nombre, gradoEscolar, horario)
+  }
+
+  /*Future<List<Curso>> getCursos() async {
+    List<Curso> cursos = [];
+    var conn = await getConnection();
+    var results = await conn.query('select * from Curso where cedula');
+    for (var row in results) {
+      estudiantes
+          .add(Estudiante(row[0], row[1], row[2], row[3], row[4], row[5]));
+    }
+    return estudiantes;
+  }*/
 }
