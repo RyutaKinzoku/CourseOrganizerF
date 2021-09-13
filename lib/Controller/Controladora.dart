@@ -8,6 +8,8 @@ import 'package:course_organizer/Model/Curso.dart';
 import 'package:course_organizer/Model/Mensaje.dart';
 import 'package:course_organizer/Model/Docente.dart';
 import 'package:course_organizer/Model/Estudiante.dart';
+import 'package:course_organizer/Model/Noticia.dart';
+import 'package:course_organizer/Model/Tarea.dart';
 
 class Controladora {
   var _manejoUsuarios = ManejoUsuarios("");
@@ -105,7 +107,59 @@ class Controladora {
     _manejoCursos.set(idCurso, nombre, grado, horario);
   }
 
-  /*Future<List<Mensaje>> getMensaje(String idCurso) async {
-    return await _manejoCursos.getAll();
-  }*/
+  //Noticias
+  void addNoticia(String mensaje, String idCurso) {
+    _manejoCursos.addNoticia(mensaje, idCurso);
+  }
+
+  void removeNoticia(String idNoticia) {
+    _manejoCursos.removeNoticia(idNoticia);
+  }
+
+  Future<Noticia> getNoticia(String idNoticia) async {
+    return await _manejoCursos.getNoticia(idNoticia);
+  }
+
+  Future<List<Noticia>> getNoticias(String idCurso) async {
+    return await _manejoCursos.getAllNoticias(idCurso);
+  }
+
+  void setNoticia(String idNoticia, String mensaje, String idCurso) {
+    _manejoCursos.setNoticia(idCurso, mensaje, idCurso);
+  }
+
+  //Mensajes
+  void addMensaje(
+      String contenido, String fechaEnvio, String idCurso, String emisor) {
+    _manejoCursos.addMensaje(contenido, fechaEnvio, idCurso, emisor);
+  }
+
+  Future<Mensaje> getMensaje(String idMensaje) async {
+    return await _manejoCursos.getMensaje(idMensaje);
+  }
+
+  Future<List<Mensaje>> getMensajes(String idCurso) async {
+    return await _manejoCursos.getAllMensajes(idCurso);
+  }
+
+  //Tareas
+  void addTarea(String descripcion, String fechaEntrega, String idCurso) {
+    _manejoCursos.addTarea(descripcion, fechaEntrega, idCurso);
+  }
+
+  void removeTarea(String idTarea) {
+    _manejoCursos.removeTarea(idTarea);
+  }
+
+  Future<Tarea> getTarea(String idTarea) async {
+    return await _manejoCursos.getTarea(idTarea);
+  }
+
+  Future<List<Tarea>> getTareas(String idCurso) async {
+    return await _manejoCursos.getAllTareas(idCurso);
+  }
+
+  void setTarea(String descripcion, String fechaEntrega, String idCurso) {
+    _manejoCursos.setTarea(descripcion, fechaEntrega, idCurso);
+  }
 }
