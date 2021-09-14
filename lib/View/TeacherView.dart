@@ -1,34 +1,34 @@
 // ignore_for_file: file_names
 
 import 'package:course_organizer/Controller/Controladora.dart';
-import 'package:course_organizer/Model/Estudiante.dart';
 import 'package:course_organizer/View/StudentsList.dart';
+import 'package:course_organizer/Model/Docente.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class StudentView extends StatefulWidget {
-  const StudentView({Key? key, required this.title}) : super(key: key);
+class TeacherView extends StatefulWidget {
+  const TeacherView({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  State<StudentView> createState() => _StudentViewPage();
+  State<TeacherView> createState() => _TeacherViewPage();
 }
 
-class _StudentViewPage extends State<StudentView> {
+class _TeacherViewPage extends State<TeacherView> {
   late String cedula, nombre, primerApellido, segundoApellido, email, grado;
   var control = Controladora();
 
-  Future<Estudiante> _getEstudiante(String cedula) async {
-    return await control.getEstudiante(cedula);
+  Future<Docente> _getDocente(String cedula) async {
+    return await control.getDocente(cedula);
   }
 
-  void _setEstudiante() {
-    control.setEstudiante(cedula, nombre, primerApellido, segundoApellido, email, grado);
+  void _setDocente() {
+    control.setDocente(cedula, nombre, primerApellido, segundoApellido, email);
   }
 
-  void _removeEstudiante() {
-    control.removeEstudiante(cedula);
+  void _removeDocente() {
+    control.removeDocente(cedula);
   }
 
   @override
@@ -93,16 +93,6 @@ class _StudentViewPage extends State<StudentView> {
                     labelText: 'Correo',
                   ),
                 ),
-                TextFormField(
-                  onChanged: (text) {
-                    grado = text;
-                  },
-                  obscureText: false,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Grado Escolar',
-                  ),
-                ),
               ]),
         ),
         floatingActionButton: FloatingActionButton(
@@ -110,9 +100,10 @@ class _StudentViewPage extends State<StudentView> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => const StudentsList(
-                        title: 'Lista de Estudiantes',
-                      )),
+                builder: (context) => const StudentsList(
+                  title: 'Lista de Docentes',
+                )
+              ),
             );
           },
           tooltip: 'Increment',
@@ -125,7 +116,7 @@ class _StudentViewPage extends State<StudentView> {
           title: Text(widget.title),
         ),
         body: FutureBuilder(
-          future: _getEstudiante(objetivo[1]),
+          future: _getDocente(objetivo[1]),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
               return Column(
@@ -187,17 +178,6 @@ class _StudentViewPage extends State<StudentView> {
                         labelText: 'Correo',
                       ),
                     ),
-                    TextFormField(
-                      initialValue: snapshot.data.getGrado(),
-                      onChanged: (text) {
-                        grado = text;
-                      },
-                      obscureText: false,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Grado Escolar',
-                      ),
-                    ),
                   ]);
             } else if (snapshot.hasError) {
               return const Text('No se encontraron datos');
@@ -216,13 +196,13 @@ class _StudentViewPage extends State<StudentView> {
             children: <Widget>[
               FloatingActionButton(
                 heroTag: "btn1",
-                onPressed: _removeEstudiante,
+                onPressed: _removeDocente,
                 tooltip: 'Increment',
                 child: const Icon(Icons.delete),
               ),
               FloatingActionButton(
                 heroTag: "btn2",
-                onPressed: _setEstudiante,
+                onPressed: _setDocente,
                 tooltip: 'Increment',
                 child: const Icon(Icons.save),
               ),

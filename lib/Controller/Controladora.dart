@@ -51,6 +51,22 @@ class Controladora {
     return await _manejoDocentes.getAll();
   }
 
+  Future<List<String>> getNombresDocentes() async {
+    List<String> nombresDocentes = [];
+    List<Docente> docentes = await getDocentes();
+
+    for (var d in docentes) {
+      nombresDocentes.add(d.getCedula() +
+          " - " +
+          d.getNombre() +
+          " " +
+          d.getPrimerApellido() +
+          " " +
+          d.getSegundoApellido());
+    }
+    return nombresDocentes;
+  }
+
   void setDocente(String cedula, String nombre, String primerApellido,
       String segundoApellido, String email) {
     _manejoDocentes.set(cedula, nombre, primerApellido, segundoApellido, email);

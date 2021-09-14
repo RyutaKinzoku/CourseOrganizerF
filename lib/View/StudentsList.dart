@@ -17,7 +17,7 @@ class StudentsList extends StatefulWidget {
 class _StudentsListPage extends State<StudentsList> {
   var control = Controladora();
 
-  Future<List<String>> getEstudiantes() async {
+  Future<List<String>> _getEstudiantes() async {
     return await control.getNombresEstudiantes();
   }
 
@@ -28,7 +28,7 @@ class _StudentsListPage extends State<StudentsList> {
         title: Text(widget.title),
       ),
       body: FutureBuilder(
-        future: getEstudiantes(),
+        future: _getEstudiantes(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
@@ -75,6 +75,5 @@ class _StudentsListPage extends State<StudentsList> {
         child: const Icon(Icons.add),
       ), 
     );
-    //return const SizedBox();
   }
 }
