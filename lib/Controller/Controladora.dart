@@ -134,7 +134,7 @@ class Controladora {
     _manejoCursos.add(nombre, grado, horario);
   }
 
-  void removeCurso(String idCurso) {
+  void removeCurso(int idCurso) {
     _manejoCursos.remove(idCurso);
   }
 
@@ -146,9 +146,36 @@ class Controladora {
     return await _manejoCursos.getAll();
   }
 
+  Future<List<String>> getNombresCursos() async {
+    List<String> nombresCursos = [];
+    List<Curso> cursos = await getCursos();
+    for (var c in cursos) {
+      nombresCursos.add(c.getIdCurso().toString() + " - " + c.getNombre());
+    }
+    return nombresCursos;
+  }
+
   void setCurso(
-      String idCurso, String nombre, String grado, List<String> horario) {
+      int idCurso, String nombre, String grado, List<String> horario) {
     _manejoCursos.set(idCurso, nombre, grado, horario);
+  }
+
+  Future<String> getDocenteDelCurso(int idCurso) async {
+    return await _manejoCursos.getDocenteDelCurso(idCurso);
+  }
+
+  Future<List<String>> getEstudiantesDelCurso(int idCurso) async {
+    return await _manejoCursos.getEstudiantesDelCurso(idCurso);
+  }
+
+  Future<List<String>> getMiembros(int idCurso) async {
+    List<String> miembros = [];
+    String docente = await getDocenteDelCurso(idCurso);
+    List<String> estudiantes = [];
+    estudiantes = await getEstudiantesDelCurso(idCurso);
+    miembros.add(docente);
+    miembros.addAll(estudiantes);
+    return miembros;
   }
 
   //Noticias

@@ -218,7 +218,7 @@ class DAO {
     });
   }
 
-  Future<void> removeCurso(String idCurso) async {
+  Future<void> removeCurso(int idCurso) async {
     var conn = await getConnection();
     conn.query('delete from Curso where ID_Curso = ?', [idCurso]);
     conn.query('delete from CursoPorDia where ID_Curso = ?', [idCurso]);
@@ -258,7 +258,7 @@ class DAO {
   }
 
   Future<void> setCurso(
-      String idCurso, String nombre, String grado, List<String> horario) async {
+      int idCurso, String nombre, String grado, List<String> horario) async {
     var conn = await getConnection();
     conn.query(
         'update Curso set nombre = ?, gradoEscolar = ? where ID_Curso = ?',
@@ -366,5 +366,31 @@ class DAO {
     conn.query(
         'update Tarea set descripcion = ?, fechaEntrega = ?, titulo = ? where ID_Tarea = ?',
         [descripcion, fechaEntrega, titulo, idTarea]);
+  }
+
+  Future<String> getDocenteDelCurso(int idCurso) async {
+    var conn = await getConnection();
+    var results = await conn.query(
+        'select Docente.cedula, Docente.nombre, Docente.primerApellido, Docente.segundoApellido FROM Curso INNER JOIN Docente ON Curso.cedulaDocente = Docente.cedula WHERE Curso.ID_Curso = ?',
+        [idCurso]);
+    return results.first[0] +
+        " - " +
+        results.first[1] +
+        " " +
+        results.first[2] +
+        " " +
+        results.first[3];
+  }
+
+  Future<List<String>> getEstudiantesDelCurso(int idCurso) async {
+    List<String> estudiantes = [];
+    var conn = await getConnection();
+    var results = await conn.query(
+        'SELECT Estudiante.cedula, Estudiante.nombre, Estudiante.primerApellido, Estudiante.segundoApellido FROM Curso INNER JOIN EstudiantePorCurso ON Curso.ID_Curso = EstudiantePorCurso.ID_Curso INNER JOIN Estudiante ON EstudiantePorCurso.cedulaEstudiante = Estudiante.cedula WHERE Curso.ID_Curso = ?',
+        [idCurso]);
+    for (var e in results) {
+      estudiantes.add(e[0] + " - " + e[1] + " " + e[2] + " " + e[3] + " ");
+    }
+    return estudiantes;
   }
 }

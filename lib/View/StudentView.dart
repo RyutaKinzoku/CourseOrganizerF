@@ -2,7 +2,6 @@
 
 import 'package:course_organizer/Controller/Controladora.dart';
 import 'package:course_organizer/Model/Estudiante.dart';
-import 'package:course_organizer/View/StudentsList.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -16,15 +15,21 @@ class StudentView extends StatefulWidget {
 }
 
 class _StudentViewPage extends State<StudentView> {
-  late String cedula, nombre, primerApellido, segundoApellido, email, grado;
+  String cedula = "", nombre = "", primerApellido = "", segundoApellido = "", email = "", grado = "";
   var control = Controladora();
 
   Future<Estudiante> _getEstudiante(String cedula) async {
     return await control.getEstudiante(cedula);
   }
 
+  void _addEstudiante() {
+    control.addEstudiante(
+        cedula, nombre, primerApellido, segundoApellido, grado, email);
+  }
+
   void _setEstudiante() {
-    control.setEstudiante(cedula, nombre, primerApellido, segundoApellido, email, grado);
+    control.setEstudiante(
+        cedula, nombre, primerApellido, segundoApellido, email, grado);
   }
 
   void _removeEstudiante() {
@@ -106,130 +111,122 @@ class _StudentViewPage extends State<StudentView> {
               ]),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const StudentsList(
-                        title: 'Lista de Estudiantes',
-                      )),
-            );
-          },
+          onPressed: _addEstudiante,
           tooltip: 'Increment',
           child: const Icon(Icons.save),
         ),
       );
     } else if (objetivo[0] == "Editar") {
       return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        body: FutureBuilder(
-          future: _getEstudiante(objetivo[1]),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.hasData) {
-              return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(),
-                    TextFormField(
-                      initialValue: snapshot.data.getCedula(),
-                      onChanged: (text) {
-                        cedula = text;
-                      },
-                      obscureText: false,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Cédula',
-                      ),
-                    ),
-                    TextFormField(
-                      initialValue: snapshot.data.getNombre(),
-                      onChanged: (text) {
-                        nombre = text;
-                      },
-                      obscureText: false,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Nombre',
-                      ),
-                    ),
-                    TextFormField(
-                      initialValue: snapshot.data.getPrimerApellido(),
-                      onChanged: (text) {
-                        primerApellido = text;
-                      },
-                      obscureText: false,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Primer Apellido',
-                      ),
-                    ),
-                    TextFormField(
-                      initialValue: snapshot.data.getSegundoApellido(),
-                      onChanged: (text) {
-                        segundoApellido = text;
-                      },
-                      obscureText: false,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Segundo Apellido',
-                      ),
-                    ),
-                    TextFormField(
-                      initialValue: snapshot.data.getEmail(),
-                      onChanged: (text) {
-                        email = text;
-                      },
-                      obscureText: false,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Correo',
-                      ),
-                    ),
-                    TextFormField(
-                      initialValue: snapshot.data.getGrado(),
-                      onChanged: (text) {
-                        grado = text;
-                      },
-                      obscureText: false,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Grado Escolar',
-                      ),
-                    ),
-                  ]);
-            } else if (snapshot.hasError) {
-              return const Text('No se encontraron datos');
-            } else {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: Container(
-          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              FloatingActionButton(
-                heroTag: "btn1",
-                onPressed: _removeEstudiante,
-                tooltip: 'Increment',
-                child: const Icon(Icons.delete),
-              ),
-              FloatingActionButton(
-                heroTag: "btn2",
-                onPressed: _setEstudiante,
-                tooltip: 'Increment',
-                child: const Icon(Icons.save),
-              ),
-            ],
+          appBar: AppBar(
+            title: Text(widget.title),
           ),
-        )
-      );
+          body: FutureBuilder(
+            future: _getEstudiante(objetivo[1]),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) {
+                return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(),
+                      TextFormField(
+                        initialValue: snapshot.data.getCedula(),
+                        onChanged: (text) {
+                          cedula = text;
+                        },
+                        obscureText: false,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Cédula',
+                        ),
+                      ),
+                      TextFormField(
+                        initialValue: snapshot.data.getNombre(),
+                        onChanged: (text) {
+                          nombre = text;
+                        },
+                        obscureText: false,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Nombre',
+                        ),
+                      ),
+                      TextFormField(
+                        initialValue: snapshot.data.getPrimerApellido(),
+                        onChanged: (text) {
+                          primerApellido = text;
+                        },
+                        obscureText: false,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Primer Apellido',
+                        ),
+                      ),
+                      TextFormField(
+                        initialValue: snapshot.data.getSegundoApellido(),
+                        onChanged: (text) {
+                          segundoApellido = text;
+                        },
+                        obscureText: false,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Segundo Apellido',
+                        ),
+                      ),
+                      TextFormField(
+                        initialValue: snapshot.data.getEmail(),
+                        onChanged: (text) {
+                          email = text;
+                        },
+                        obscureText: false,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Correo',
+                        ),
+                      ),
+                      TextFormField(
+                        initialValue: snapshot.data.getGrado(),
+                        onChanged: (text) {
+                          grado = text;
+                        },
+                        obscureText: false,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Grado Escolar',
+                        ),
+                      ),
+                    ]);
+              } else if (snapshot.hasError) {
+                return const Text('No se encontraron datos');
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
+          floatingActionButton: Container(
+            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                FloatingActionButton(
+                  heroTag: "btn1",
+                  onPressed: _removeEstudiante,
+                  tooltip: 'Increment',
+                  child: const Icon(Icons.delete),
+                ),
+                FloatingActionButton(
+                  heroTag: "btn2",
+                  onPressed: _setEstudiante,
+                  tooltip: 'Increment',
+                  child: const Icon(Icons.save),
+                ),
+              ],
+            ),
+          ));
     }
     return const SizedBox(); //Si no se cumple nada se retorna una pantalla en negro
   }

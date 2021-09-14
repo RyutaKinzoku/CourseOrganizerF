@@ -2,12 +2,13 @@
 import 'package:course_organizer/Model/Noticia.dart';
 
 class Curso {
-  String _idCurso, _nombre, _grado;
+  int _idCurso;
+  String _nombre, _grado;
   List<String> _horario;
 
   Curso(this._idCurso, this._nombre, this._grado, this._horario);
 
-  String getIdCurso() {
+  int getIdCurso() {
     return _idCurso;
   }
 

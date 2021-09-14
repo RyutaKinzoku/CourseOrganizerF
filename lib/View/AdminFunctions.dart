@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, prefer_const_constructors
 
+import 'package:course_organizer/View/CoursesList.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:course_organizer/View/StudentsList.dart';
@@ -33,7 +34,7 @@ class _AdminFunctionsPage extends State<AdminFunctions> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => StudentsList(
-                          title: 'Lista de Estudiantes',
+                      title: 'Lista de Estudiantes',
                     )
                   ),
                 );
@@ -48,9 +49,10 @@ class _AdminFunctionsPage extends State<AdminFunctions> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => TeachersList(
-                            title: 'Lista de Docentes',
-                          )),
+                    builder: (context) => TeachersList(
+                      title: 'Lista de Docentes',
+                    )
+                  ),
                 );
               },
               color: Colors.amber,
@@ -63,9 +65,10 @@ class _AdminFunctionsPage extends State<AdminFunctions> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => StudentsList(
-                            title: 'Lista de Cursos',
-                          )),
+                    builder: (context) => CoursesList(
+                      title: 'Lista de Cursos',
+                    )
+                  ),
                 );
               },
               color: Colors.amber,
@@ -78,9 +81,10 @@ class _AdminFunctionsPage extends State<AdminFunctions> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => StudentsList(
-                            title: 'Matricula',
-                          )),
+                    builder: (context) => CoursesList(
+                      title: 'Matrícula',
+                    )
+                  ),
                 );
               },
               color: Colors.amber,
