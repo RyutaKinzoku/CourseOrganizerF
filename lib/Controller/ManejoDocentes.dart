@@ -38,6 +38,6 @@ class ManejoDocentes {
 
   void set(String cedula, String nombre, String primerApellido,
       String segundoApellido, String email) {
-    _db.setDocentes(cedula, nombre, primerApellido, segundoApellido, email);
+    _db.setDocente(cedula, nombre, primerApellido, segundoApellido, email);
   }
 }

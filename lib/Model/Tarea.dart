@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, prefer_final_fields
 class Tarea {
   String _idTarea, _descripcion, _fechaEntrega, _idCurso, _titulo;
 

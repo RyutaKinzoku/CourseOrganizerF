@@ -62,10 +62,11 @@ class _MyHomePageState extends State<Login> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text('Iniciar Sesión',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 40,
-                )),
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 40,
+              )
+            ),
             TextField(
               onChanged: (text) {
                 email = text;

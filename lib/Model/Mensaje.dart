@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, prefer_final_fields
 class Mensaje {
   String _idMensaje, _contenido, _fechaEnvio, _idCurso, _emisor;
 

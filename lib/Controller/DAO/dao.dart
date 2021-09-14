@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_function_literals_in_foreach_calls
+
 import 'package:course_organizer/Model/Docente.dart';
 import 'package:course_organizer/Model/Estudiante.dart';
 import 'package:course_organizer/Model/Rol.dart';
@@ -94,7 +96,7 @@ class DAO {
     return docentes;
   }
 
-  Future<void> setDocentes(String cedula, String nombre, String primerApellido,
+  Future<void> setDocente(String cedula, String nombre, String primerApellido,
       String segundoApellido, String email) async {
     var conn = await getConnection();
     conn.query(

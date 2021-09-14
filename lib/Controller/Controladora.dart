@@ -2,8 +2,8 @@
 
 import 'package:course_organizer/Controller/ManejoDocentes.dart';
 import 'package:course_organizer/Controller/ManejoUsuarios.dart';
-import 'package:course_organizer/Controller/ManejoEstudiantes.dart';
 import 'package:course_organizer/Controller/ManejoCursos.dart';
+import 'package:course_organizer/Controller/manejoEstudiantes.dart';
 import 'package:course_organizer/Model/Curso.dart';
 import 'package:course_organizer/Model/Mensaje.dart';
 import 'package:course_organizer/Model/Docente.dart';
@@ -51,7 +51,7 @@ class Controladora {
     return await _manejoDocentes.getAll();
   }
 
-  void setDocentes(String cedula, String nombre, String primerApellido,
+  void setDocente(String cedula, String nombre, String primerApellido,
       String segundoApellido, String email) {
     _manejoDocentes.set(cedula, nombre, primerApellido, segundoApellido, email);
   }
@@ -80,7 +80,9 @@ class Controladora {
     List<Estudiante> estudiantes = await getEstudiantes();
 
     for (var e in estudiantes) {
-      nombresEstudiantes.add(e.getNombre() +
+      nombresEstudiantes.add(e.getCedula() +
+          " - " +
+          e.getNombre() +
           " " +
           e.getPrimerApellido() +
           " " +
@@ -89,10 +91,9 @@ class Controladora {
     return nombresEstudiantes;
   }
 
-  void setEstudiantes(String cedula, String nombre, String primerApellido,
+  void setEstudiante(String cedula, String nombre, String primerApellido,
       String segundoApellido, String grado, String email) {
-    _manejoEstudiantes.set(
-        cedula, nombre, primerApellido, segundoApellido, grado, email);
+    _manejoEstudiantes.set(cedula, nombre, primerApellido, segundoApellido, grado, email);
   }
 
   //Cursos

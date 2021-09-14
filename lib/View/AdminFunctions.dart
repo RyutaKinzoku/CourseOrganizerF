@@ -2,11 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:course_organizer/Controller/Controladora.dart';
 import 'package:course_organizer/View/StudentsList.dart';
 import 'package:course_organizer/View/TeachersList.dart';
-import 'package:course_organizer/View/CoursesList.dart';
-import 'package:course_organizer/View/Enrollment.dart';
 
 class AdminFunctions extends StatefulWidget {
   const AdminFunctions({Key? key, required this.title}) : super(key: key);
@@ -35,9 +32,10 @@ class _AdminFunctionsPage extends State<AdminFunctions> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => StudentsList(
-                            title: 'Lista de Estudiantes',
-                          )),
+                    builder: (context) => StudentsList(
+                          title: 'Lista de Estudiantes',
+                    )
+                  ),
                 );
               },
               color: Colors.amber,
@@ -66,7 +64,7 @@ class _AdminFunctionsPage extends State<AdminFunctions> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => StudentsList(
-                            title: 'Lista de Curses',
+                            title: 'Lista de Cursos',
                           )),
                 );
               },
