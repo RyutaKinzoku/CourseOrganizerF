@@ -39,6 +39,14 @@ class Controladora {
     _manejoDocentes.remove(cedula);
   }
 
+  void assignDocente(String cedulaDocente, String idCurso) {
+    _manejoCursos.assignDocente(cedulaDocente, idCurso);
+  }
+
+  void withdrawDocente(String cedulaDocente, String idCurso) {
+    _manejoCursos.withdrawDocente(cedulaDocente, idCurso);
+  }
+
   Future<Docente> getDocente(String cedula) async {
     return await _manejoDocentes.get(cedula);
   }
@@ -83,6 +91,14 @@ class Controladora {
     _manejoEstudiantes.remove(cedula);
   }
 
+  void assignEstudiante(String cedulaEstudiante, String idCurso) {
+    _manejoCursos.assignEstudiante(cedulaEstudiante, idCurso);
+  }
+
+  void withdrawEstudiante(String cedulaEstudiante, String idCurso) {
+    _manejoCursos.withdrawEstudiante(cedulaEstudiante, idCurso);
+  }
+
   Future<Estudiante> getEstudiante(String cedula) async {
     return await _manejoEstudiantes.get(cedula);
   }
@@ -109,7 +125,8 @@ class Controladora {
 
   void setEstudiante(String cedula, String nombre, String primerApellido,
       String segundoApellido, String grado, String email) {
-    _manejoEstudiantes.set(cedula, nombre, primerApellido, segundoApellido, grado, email);
+    _manejoEstudiantes.set(
+        cedula, nombre, primerApellido, segundoApellido, grado, email);
   }
 
   //Cursos

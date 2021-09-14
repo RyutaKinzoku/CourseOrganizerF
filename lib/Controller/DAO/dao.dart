@@ -70,6 +70,23 @@ class DAO {
   Future<void> removeDocente(String cedula) async {
     var conn = await getConnection();
     conn.query('delete from Docente where cedula = ?', [cedula]);
+    var email =
+        conn.query('select email from Persona where cedula = ?', [cedula]);
+    conn.query('delete from Persona where cedula = ?', [cedula]);
+    conn.query('delete from Usuario where email = ?', [email]);
+  }
+
+  Future<void> assignDocente(String cedulaDocente, String idCurso) async {
+    var conn = await getConnection();
+    conn.query('update Curso set cedulaDocente = ? where ID_Curso = ?',
+        [cedulaDocente, idCurso]);
+  }
+
+  Future<void> withdrawDocente(String cedulaDocente, String idCurso) async {
+    var conn = await getConnection();
+    conn.query(
+        'update Curso set cedulaDocente = Null where ID_Curso = ? AND cedulaDocente = ?',
+        [idCurso, cedulaDocente]);
   }
 
   Future<Docente> getDocente(String cedula) async {
@@ -130,6 +147,25 @@ class DAO {
   Future<void> removeEstudiante(String cedula) async {
     var conn = await getConnection();
     conn.query('delete from Estudiante where cedula = ?', [cedula]);
+    var email =
+        conn.query('select email from Persona where cedula = ?', [cedula]);
+    conn.query('delete from Persona where cedula = ?', [cedula]);
+    conn.query('delete from Usuario where email = ?', [email]);
+  }
+
+  Future<void> assignEstudiante(String cedulaEstudiante, String idCurso) async {
+    var conn = await getConnection();
+    conn.query(
+        'insert into EstudiantePorCurso (ID_Curso, cedulaEstudiante) values (?, ?)',
+        [idCurso, cedulaEstudiante]);
+  }
+
+  Future<void> withdrawEstudiante(
+      String cedulaEstudiante, String idCurso) async {
+    var conn = await getConnection();
+    conn.query(
+        'delete from EstudiantePorCurso where cedulaEstudiante = ? AND ID_Curso = ?',
+        [cedulaEstudiante, idCurso]);
   }
 
   Future<Estudiante> getEstudiante(String cedula) async {

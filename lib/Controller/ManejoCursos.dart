@@ -19,6 +19,22 @@ class ManejoCursos {
     _db.removeCurso(idCurso);
   }
 
+  void assignDocente(String cedulaDocente, String idCurso) {
+    _db.assignDocente(cedulaDocente, idCurso);
+  }
+
+  void withdrawDocente(String cedulaDocente, String idCurso) {
+    _db.withdrawDocente(cedulaDocente, idCurso);
+  }
+
+  void assignEstudiante(String cedulaEstudiante, String idCurso) {
+    _db.assignEstudiante(cedulaEstudiante, idCurso);
+  }
+
+  void withdrawEstudiante(String cedulaEstudiante, String idCurso) {
+    _db.withdrawEstudiante(cedulaEstudiante, idCurso);
+  }
+
   Future<Curso> get(String idCurso) async {
     return await _db.getCurso(idCurso);
   }
