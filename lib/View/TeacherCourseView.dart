@@ -52,62 +52,80 @@ class _TeacherCourseViewPage extends State<TeacherCourseView> {
                     )),
               ),
             ),
-            MaterialButton(
-              minWidth: 250.0,
-              height: 50.0,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => CourseChat(
-                            title: 'Chat del curso',
-                          )),
-                );
-              },
-              color: Colors.amber,
-              child: Text('Chat',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20.0,
-                  )),
+            Container(
+              margin: EdgeInsets.all(10),
+              child: MaterialButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12)),
+                minWidth: 250.0,
+                height: 50.0,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CourseChat(
+                              title:
+                                  'Chat del curso ${widget.title.split(" ")[1]}',
+                            )),
+                  );
+                },
+                color: Colors.amber,
+                child: Text('Chat',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20.0,
+                    )),
+              ),
             ),
-            MaterialButton(
-              minWidth: 250.0,
-              height: 50.0,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => CoursesList(
-                            title: 'Tareas del curso',
-                          )),
-                );
-              },
-              color: Colors.amber,
-              child: Text('Tareas',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20.0,
-                  )),
+            Container(
+              margin: EdgeInsets.all(10),
+              child: MaterialButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12)),
+                minWidth: 250.0,
+                height: 50.0,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CoursesList(
+                              title:
+                                  'Tareas del curso ${widget.title.split(" ")[1]}',
+                            )),
+                  );
+                },
+                color: Colors.amber,
+                child: Text('Tareas',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20.0,
+                    )),
+              ),
             ),
-            MaterialButton(
-              minWidth: 250.0,
-              height: 50.0,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => CoursesList(
-                            title: 'Noticias del curso',
-                          )),
-                );
-              },
-              color: Colors.amber,
-              child: Text('Noticias',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20.0,
-                  )),
+            Container(
+              margin: EdgeInsets.all(10),
+              child: MaterialButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12)),
+                minWidth: 250.0,
+                height: 50.0,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CoursesList(
+                              title:
+                                  'Noticias del curso ${widget.title.split(" ")[1]}',
+                            )),
+                  );
+                },
+                color: Colors.amber,
+                child: Text('Noticias',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20.0,
+                    )),
+              ),
             ),
           ],
         ),
