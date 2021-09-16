@@ -108,7 +108,7 @@ class DAO {
     var conn = await getConnection();
     var results = await conn.query('select * from Docente');
     for (var row in results) {
-      docentes.add(Docente(row[0], row[1], row[2], row[3], row[4], row[5]));
+      docentes.add(Docente(row[0], row[1], row[2], row[3], 0,row[4])); //Cambiar calificación
     }
     return docentes;
   }
