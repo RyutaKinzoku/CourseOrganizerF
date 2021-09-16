@@ -393,4 +393,29 @@ class DAO {
     }
     return estudiantes;
   }
+
+  Future<List<String>> getCursosProfesor(String cedula) async {
+    List<String> cursos = [];
+    var conn = await getConnection();
+    var results = await conn.query(
+        'SELECT Curso.ID_Curso, Curso.nombre FROM Curso INNER JOIN Docente ON Curso.cedulaDocente = Docente.cedula WHERE Curso.cedulaDocente = ?',
+        [cedula]);
+    for (var c in results) {
+      cursos.add(c[0].toString() + " - " + c[1]);
+    }
+    return cursos;
+  }
+
+  Future<String> getCedula(String email) async {
+    var conn = await getConnection();
+    var results = await conn.query(
+        'SELECT Docente.cedula FROM Docente INNER JOIN Usuario ON Docente.email = Usuario.email WHERE Docente.email = ?',
+        [email]);
+    if (results.isEmpty) {
+      results = await conn.query(
+          'SELECT Estudiante.cedula FROM Estudiante INNER JOIN Usuario ON Estudiante.email = Usuario.email WHERE Estudiante.email = ?',
+          [email]);
+    }
+    return results.first[0];
+  }
 }

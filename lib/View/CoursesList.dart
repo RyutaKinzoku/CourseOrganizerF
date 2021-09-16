@@ -15,9 +15,9 @@ class CoursesList extends StatefulWidget {
   State<CoursesList> createState() => _CoursesListPage();
 }
 
-
 class _CoursesListPage extends State<CoursesList> {
   var control = Controladora();
+  String cedula = "";
 
   Future<List<String>> _getCursos() async {
     return await control.getNombresCursos();
@@ -35,25 +35,21 @@ class _CoursesListPage extends State<CoursesList> {
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
               return ListView.builder(
-                itemCount: snapshot.data.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Card(
-                    child: ListTile(
-                      title: Text(snapshot.data[index]),
-                      onTap: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => CourseView(
-                              title: 'Editar ${snapshot.data[index].split(" - ")[0]}',
-                            )
-                          )
-                        );
-                      }
-                    )
-                  );
-                }
-              );
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Card(
+                        child: ListTile(
+                            title: Text(snapshot.data[index]),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CourseView(
+                                            title:
+                                                'Editar ${snapshot.data[index].split(" - ")[0]}',
+                                          )));
+                            }));
+                  });
             } else if (snapshot.hasError) {
               return const Text('No se encontraron datos');
             } else {
@@ -64,19 +60,17 @@ class _CoursesListPage extends State<CoursesList> {
           },
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: (){
+          onPressed: () {
             Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const CourseView(
-                  title: 'Agregar Curso',
-                )
-              )
-            );
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const CourseView(
+                          title: 'Agregar Curso',
+                        )));
           },
           tooltip: 'Increment',
           child: const Icon(Icons.add),
-        ), 
+        ),
       );
     } else if (widget.title == "Matrícula") {
       return Scaffold(
@@ -88,27 +82,23 @@ class _CoursesListPage extends State<CoursesList> {
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
               return ListView.builder(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemCount: snapshot.data.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Card(
-                    child: ListTile(
-                      title: Text(snapshot.data[index]),
-                      onTap: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => CourseView(
-                              title: 'Matrícula ${snapshot.data[index].split(" - ")[0]}',
-                            )
-                          )
-                        );
-                      }
-                    )
-                  );
-                }
-              );
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Card(
+                        child: ListTile(
+                            title: Text(snapshot.data[index]),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CourseView(
+                                            title:
+                                                'Matrícula ${snapshot.data[index].split(" - ")[0]}',
+                                          )));
+                            }));
+                  });
             } else if (snapshot.hasError) {
               return const Text('No se encontraron datos');
             } else {

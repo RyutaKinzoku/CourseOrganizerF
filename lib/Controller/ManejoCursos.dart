@@ -106,4 +106,8 @@ class ManejoCursos {
   Future<List<String>> getEstudiantesDelCurso(int idCurso) async {
     return await _db.getEstudiantesDelCurso(idCurso);
   }
+
+   Future<List<String>> getCursosProfesor(String cedula) async {
+     return await _db.getCursosProfesor(cedula);
+   }
 }

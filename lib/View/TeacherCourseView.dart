@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, prefer_const_constructors
 
 import 'package:course_organizer/View/CoursesList.dart';
+import 'package:course_organizer/View/StudentsCourseList.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:course_organizer/View/TeacherInfo.dart';
@@ -20,26 +21,36 @@ class _TeacherCourseViewPage extends State<TeacherCourseView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Normbre curso"),
+        title: Text(widget.title),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            MaterialButton(
-              minWidth: 250.0,
-              height: 50.0,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => TeacherInfo(
-                            title: 'Lista de Estudiantes',
-                          )),
-                );
-              },
-              color: Colors.amber,
-              child: Text('Estudiantes', style: TextStyle(color: Colors.white)),
+            Container(
+              margin: EdgeInsets.all(10),
+              child: MaterialButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12)),
+                minWidth: 250.0,
+                height: 50.0,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => StudentsCourseList(
+                              title:
+                                  'Lista de Estudiantes ${widget.title.split(" ")[1]}',
+                            )),
+                  );
+                },
+                color: Colors.amber,
+                child: Text('Estudiantes',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20.0,
+                    )),
+              ),
             ),
             MaterialButton(
               minWidth: 250.0,
@@ -54,7 +65,11 @@ class _TeacherCourseViewPage extends State<TeacherCourseView> {
                 );
               },
               color: Colors.amber,
-              child: Text('Chat', style: TextStyle(color: Colors.white)),
+              child: Text('Chat',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.0,
+                  )),
             ),
             MaterialButton(
               minWidth: 250.0,
@@ -69,7 +84,11 @@ class _TeacherCourseViewPage extends State<TeacherCourseView> {
                 );
               },
               color: Colors.amber,
-              child: Text('Tareas', style: TextStyle(color: Colors.white)),
+              child: Text('Tareas',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.0,
+                  )),
             ),
             MaterialButton(
               minWidth: 250.0,
@@ -84,7 +103,11 @@ class _TeacherCourseViewPage extends State<TeacherCourseView> {
                 );
               },
               color: Colors.amber,
-              child: Text('Noticias', style: TextStyle(color: Colors.white)),
+              child: Text('Noticias',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.0,
+                  )),
             ),
           ],
         ),

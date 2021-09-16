@@ -1,42 +1,34 @@
 // ignore_for_file: file_names
 
 import 'package:course_organizer/Controller/Controladora.dart';
-import 'package:course_organizer/View/TeacherCourseView.dart';
+import 'package:course_organizer/View/StudentView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class TeacherFunctions extends StatefulWidget {
-  const TeacherFunctions({Key? key, required this.title}) : super(key: key);
+class StudentsCourseList extends StatefulWidget {
+  const StudentsCourseList({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  State<TeacherFunctions> createState() => _TeacherFunctionsPage();
+  State<StudentsCourseList> createState() => _StudentsCourseListPage();
 }
 
-class _TeacherFunctionsPage extends State<TeacherFunctions> {
+class _StudentsCourseListPage extends State<StudentsCourseList> {
   var control = Controladora();
-  String cedula = "";
 
-  Future<List<String>> _getCursosProfesor(String cedula) async {
-    return await control.getNombresCursosProfesor(cedula);
-  }
-
-  Future<String> _getCedula(String email) async {
-    return await control.getCedulaUsuario(email);
-  }
-
-  Future<List<String>> _getCursosUsuario(String email) async {
-    var cedula = await _getCedula(email);
-    return _getCursosProfesor(cedula);
+  Future<List<String>> _getEstudiantes(int idCurso) async {
+    return await control.getNombresEstudiantesCurso(idCurso);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
       body: FutureBuilder(
-        future: _getCursosUsuario(widget.title.split(" ")[2]),
+        future: _getEstudiantes(int.parse(widget.title.split(" ")[3])),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
@@ -45,13 +37,12 @@ class _TeacherFunctionsPage extends State<TeacherFunctions> {
                 return Card(
                   child: ListTile(
                     title: Text(snapshot.data[index]),
-                    onTap: () {
+                    onTap: (){
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => TeacherCourseView(
-                            title:
-                              'Curso ${snapshot.data[index]}',
+                          builder: (context) => StudentView(
+                                title: 'Editar ${snapshot.data[index].split(" - ")[0]}',
                           )
                         )
                       );
@@ -69,6 +60,20 @@ class _TeacherFunctionsPage extends State<TeacherFunctions> {
           }
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const StudentView(
+                    title: 'Agregar Estudiante',
+              )
+            )
+          );
+        },
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ), 
     );
   }
 }

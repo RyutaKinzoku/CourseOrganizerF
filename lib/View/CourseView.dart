@@ -195,7 +195,9 @@ class _CourseViewPage extends State<CourseView> {
                     ),
                     const Text("Estudiantes:"),
                     ListView.builder(
+                      scrollDirection: Axis.vertical,
                       itemCount: snapshot.data.length,
+                      shrinkWrap: true,
                       itemBuilder: (BuildContext context, int index) {
                         return Card(
                           child: ListTile(

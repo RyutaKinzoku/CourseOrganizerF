@@ -20,4 +20,8 @@ class ManejoUsuarios {
   Future<String> getRol(String email) {
     return _db.getRole(email);
   }
+
+  Future<String> getCedula(String email) async {
+    return await _db.getCedula(email);
+  }
 }

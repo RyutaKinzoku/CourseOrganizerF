@@ -26,24 +26,27 @@ class _MyHomePageState extends State<Login> {
           context,
           MaterialPageRoute(
               builder: (context) => StudentFunctions(
-                    title: 'Funciones de Estudiante',
-                  )),
+              title: 'Funciones de Estudiante',
+            )
+          ),
         );
       } else if (await control.getRol(email) == "Docente") {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => TeacherFunctions(
-                    title: 'Funciones de Docente',
-                  )),
+            builder: (context) => TeacherFunctions(
+              title: 'Funciones de $email',
+            )
+          ),
         );
       } else if (await control.getRol(email) == "Administrador") {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => AdminFunctions(
-                    title: 'Funciones de Administrador',
-                  )),
+            builder: (context) => AdminFunctions(
+              title: 'Funciones de Administrador',
+            )
+          ),
         );
       }
     } else {
@@ -62,11 +65,10 @@ class _MyHomePageState extends State<Login> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text('Iniciar Sesión',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 40,
-              )
-            ),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 40,
+                )),
             TextField(
               onChanged: (text) {
                 email = text;

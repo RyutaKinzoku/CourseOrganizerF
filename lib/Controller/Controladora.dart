@@ -80,6 +80,10 @@ class Controladora {
     _manejoDocentes.set(cedula, nombre, primerApellido, segundoApellido, email);
   }
 
+  Future<String> getCedulaUsuario(String email) async {
+    return await _manejoUsuarios.getCedula(email);
+  }
+
   // Estudiante
   void addEstudiante(String cedula, String nombre, String primerApellido,
       String segundoApellido, String grado, String email) {
@@ -129,6 +133,10 @@ class Controladora {
         cedula, nombre, primerApellido, segundoApellido, grado, email);
   }
 
+  List<String> getNombresEstudiantesCurso(int idCurso) {
+    return [];
+  }
+
   //Cursos
   void addCurso(String nombre, String grado, List<String> horario) {
     _manejoCursos.add(nombre, grado, horario);
@@ -176,6 +184,11 @@ class Controladora {
     miembros.add(docente);
     miembros.addAll(estudiantes);
     return miembros;
+  }
+
+  Future<List<String>> getNombresCursosProfesor(String cedula) async {
+    List<String> cursos = await _manejoCursos.getCursosProfesor(cedula);
+    return cursos;
   }
 
   //Noticias
