@@ -192,62 +192,77 @@ class _CourseViewPage extends State<CourseView> {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            margin: const EdgeInsets.all(10),
-                            child: MaterialButton(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12)),
-                              minWidth: 100.0,
-                              height: 50.0,
-                              onPressed: () {},
-                              color: Colors.amber,
-                              child: const Text('Desasignar',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20.0,
-                                  )),
-                            ),
-                          ),
-                          Container(
-                            alignment: Alignment.centerRight,
-                            margin: const EdgeInsets.all(10),
-                            child: MaterialButton(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12)),
-                              minWidth: 100.0,
-                              height: 50.0,
-                              onPressed: () {},
-                              color: Colors.amber,
-                              child: const Text('Asignar',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20.0,
-                                  )),
-                            ),
-                          ),
-                        ]
-                      )
-                    ),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 0, horizontal: 10.0),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                margin: const EdgeInsets.all(10),
+                                child: MaterialButton(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12)),
+                                  minWidth: 100.0,
+                                  height: 50.0,
+                                  onPressed: () {},
+                                  color: Colors.amber,
+                                  child: const Text('Desasignar',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20.0,
+                                      )),
+                                ),
+                              ),
+                              Container(
+                                alignment: Alignment.centerRight,
+                                margin: const EdgeInsets.all(10),
+                                child: MaterialButton(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12)),
+                                  minWidth: 100.0,
+                                  height: 50.0,
+                                  onPressed: () {},
+                                  color: Colors.amber,
+                                  child: const Text('Asignar',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20.0,
+                                      )),
+                                ),
+                              ),
+                            ])),
                     const Text("Estudiantes:"),
                     ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      itemCount: snapshot.data.length,
-                      shrinkWrap: true,
-                      itemBuilder: (BuildContext context, int index) {
-                        if (index > 0) {
-                          return Card(
-                              child: ListTile(
-                            title: Text(snapshot.data[index]),
-                          ));
-                        }
-                        return const Card();
-                      }
-                    )
+                        scrollDirection: Axis.vertical,
+                        itemCount: snapshot.data.length,
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          if (index > 0) {
+                            return Card(
+                                child: ListTile(
+                              title: Text(snapshot.data[index]),
+                            ));
+                          }
+                          return const Card();
+                        }),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      margin: const EdgeInsets.all(10),
+                      child: MaterialButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12)),
+                        minWidth: 100.0,
+                        height: 50.0,
+                        onPressed: () {},
+                        color: Colors.amber,
+                        child: const Text('Agregar',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20.0,
+                            )),
+                      ),
+                    ),
                   ]);
             } else if (snapshot.hasError) {
               return const Text('No se encontraron datos');
