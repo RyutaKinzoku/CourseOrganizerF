@@ -12,7 +12,7 @@ import 'package:course_organizer/Model/Noticia.dart';
 import 'package:course_organizer/Model/Tarea.dart';
 
 class Controladora {
-  var _manejoUsuarios = ManejoUsuarios("");
+  var _manejoUsuarios = ManejoUsuarios();
   var _manejoDocentes = ManejoDocentes();
   var _manejoEstudiantes = ManejoEstudiantes();
   var _manejoCursos = ManejoCursos();
@@ -20,13 +20,17 @@ class Controladora {
   Future<bool> login(String email, String password) async {
     bool result = await _manejoUsuarios.login(email, password);
     if (result) {
-      _manejoUsuarios = ManejoUsuarios(email);
+      _manejoUsuarios.setEmailActual(email);
     }
     return result;
   }
 
   Future<String> getRol(String email) async {
     return _manejoUsuarios.getRol(email);
+  }
+
+  String getEmailActual() {
+    return _manejoUsuarios.getEmailActual();
   }
 
   //Docente

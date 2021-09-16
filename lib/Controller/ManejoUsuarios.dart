@@ -4,13 +4,17 @@ import 'package:course_organizer/Controller/DAO/dao.dart';
 import 'package:course_organizer/Model/Usuario.dart';
 
 class ManejoUsuarios {
-  String _emailActual;
+  static String _emailActual = '';
   var _db = DAO();
 
-  ManejoUsuarios(this._emailActual);
+  ManejoUsuarios();
 
   Future<bool> login(String email, String password) {
     return _db.login(email, password);
+  }
+
+  void setEmailActual(String emailActual) {
+    _emailActual = emailActual;
   }
 
   String getEmailActual() {

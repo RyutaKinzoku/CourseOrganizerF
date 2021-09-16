@@ -26,7 +26,7 @@ class _MyHomePageState extends State<Login> {
           context,
           MaterialPageRoute(
               builder: (context) => StudentFunctions(
-              title: 'Funciones de $email',
+              title: 'Funciones de ${control.getEmailActual()}',
             )
           ),
         );
