@@ -94,7 +94,7 @@ class DAO {
     var results =
         await conn.query('select * from Docente where cedula = ?', [cedula]);
     return Docente(results.first[0], results.first[1], results.first[2],
-        results.first[3], results.first[4], results.first[5]);
+        results.first[3], 0, results.first[5]); //Cambiar calificacion
   }
 
   Future<void> calificarDocente(String cedula, int calificacion) async {
@@ -284,11 +284,13 @@ class DAO {
   Future<List<Mensaje>> getAllMensajes(String idCurso) async {
     List<Mensaje> mensajes = [];
     var conn = await getConnection();
-    var results = await conn
-        .query('select * from Mensajes where ID_Curso = ?', [idCurso]);
+    var results =
+        await conn.query('select * from Mensaje where ID_Curso = ?', [idCurso]);
     for (var row in results) {
-      mensajes.add(Mensaje(row[0], row[1], row[2], row[3], row[4]));
+      mensajes.add(Mensaje(row[0].toString(), row[1], row[2].toString(),
+          row[3].toString(), row[4]));
     }
+    print(mensajes);
     return mensajes;
   }
 

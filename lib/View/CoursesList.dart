@@ -102,9 +102,7 @@ class _CoursesListPage extends State<CoursesList> {
             } else if (snapshot.hasError) {
               return const Text('No se encontraron datos');
             } else {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+              return const Center(child: CircularProgressIndicator());
             }
           },
         ),
