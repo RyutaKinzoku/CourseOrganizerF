@@ -164,8 +164,8 @@ class Controladora {
     _manejoCursos.set(idCurso, nombre, grado, horario);
   }
 
-  Future<String> getDocenteDelCurso(int idCurso) async {
-    return await _manejoCursos.getDocenteDelCurso(idCurso);
+  Future<String> getNombreDocenteDelCurso(int idCurso) async {
+    return await _manejoCursos.getNombreDocenteDelCurso(idCurso);
   }
 
   Future<List<String>> getEstudiantesDelCurso(int idCurso) async {
@@ -174,7 +174,7 @@ class Controladora {
 
   Future<List<String>> getMiembros(int idCurso) async {
     List<String> miembros = [];
-    String docente = await getDocenteDelCurso(idCurso);
+    String docente = await getNombreDocenteDelCurso(idCurso);
     List<String> estudiantes = [];
     estudiantes = await getEstudiantesDelCurso(idCurso);
     miembros.add(docente);
@@ -243,5 +243,9 @@ class Controladora {
 
   Future<List<String>> getNombresCursosEstudiante(String cedula) async {
     return await _manejoCursos.getCursosEstudiante(cedula);
+  }
+
+  Future<Docente> getDocenteDelCurso(String idCurso) async {
+    return await _manejoCursos.getDocente(idCurso);
   }
 }

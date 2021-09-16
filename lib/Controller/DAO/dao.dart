@@ -108,7 +108,8 @@ class DAO {
     var conn = await getConnection();
     var results = await conn.query('select * from Docente');
     for (var row in results) {
-      docentes.add(Docente(row[0], row[1], row[2], row[3], 0,row[4])); //Cambiar calificación
+      docentes.add(Docente(
+          row[0], row[1], row[2], row[3], 0, row[4])); //Cambiar calificación
     }
     return docentes;
   }
@@ -346,8 +347,12 @@ class DAO {
     var conn = await getConnection();
     var results =
         await conn.query('select * from Tarea where ID_Tarea = ?', [idTarea]);
-    return Tarea(results.first[0].toString(), results.first[1], results.first[2].toString(),
-        results.first[3].toString(), results.first[4]);
+    return Tarea(
+        results.first[0].toString(),
+        results.first[1],
+        results.first[2].toString(),
+        results.first[3].toString(),
+        results.first[4]);
   }
 
   Future<List<Tarea>> getAllTareas(String idCurso) async {
@@ -370,7 +375,7 @@ class DAO {
         [descripcion, fechaEntrega, titulo, idTarea]);
   }
 
-  Future<String> getDocenteDelCurso(int idCurso) async {
+  Future<String> getNombreDocenteDelCurso(int idCurso) async {
     var conn = await getConnection();
     var results = await conn.query(
         'select Docente.cedula, Docente.nombre, Docente.primerApellido, Docente.segundoApellido FROM Curso INNER JOIN Docente ON Curso.cedulaDocente = Docente.cedula WHERE Curso.ID_Curso = ?',
@@ -431,5 +436,15 @@ class DAO {
       cursos.add(c[0].toString() + " - " + c[1]);
     }
     return cursos;
+  }
+
+  Future<Docente> getDocenteDelCurso(String idCurso) async {
+    print(idCurso);
+    var conn = await getConnection();
+    var results = await conn.query(
+        'select Docente.cedula, Docente.nombre, Docente.primerApellido, Docente.segundoApellido, Docente.email FROM Curso INNER JOIN Docente ON Curso.cedulaDocente = Docente.cedula WHERE Curso.ID_Curso = ?',
+        [idCurso]);
+    return Docente(results.first[0], results.first[1], results.first[2],
+        results.first[3], 0, results.first[4]);
   }
 }

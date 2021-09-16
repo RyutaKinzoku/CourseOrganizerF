@@ -99,8 +99,8 @@ class ManejoCursos {
     _db.setTarea(idTarea, descripcion, fechaEntrega, titulo);
   }
 
-  Future<String> getDocenteDelCurso(int idCurso) async {
-    return await _db.getDocenteDelCurso(idCurso);
+  Future<String> getNombreDocenteDelCurso(int idCurso) async {
+    return await _db.getNombreDocenteDelCurso(idCurso);
   }
 
   Future<List<String>> getEstudiantesDelCurso(int idCurso) async {
@@ -113,5 +113,9 @@ class ManejoCursos {
 
   Future<List<String>> getCursosEstudiante(String cedula) async {
     return await _db.getCursosEstudiante(cedula);
+  }
+
+  Future<Docente> getDocente(String idCurso) async {
+    return await _db.getDocenteDelCurso(idCurso);
   }
 }

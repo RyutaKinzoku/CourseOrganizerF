@@ -16,7 +16,6 @@ class AssignmentView extends StatefulWidget {
 
 class _AssignmentViewPage extends State<AssignmentView> {
   var control = Controladora();
-  String cedula = "";
 
   Future<Tarea> _getTarea(String idTarea) async {
     return await control.getTarea(idTarea);
