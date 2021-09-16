@@ -342,11 +342,12 @@ class DAO {
   }
 
   Future<Tarea> getTarea(String idTarea) async {
+    print(idTarea);
     var conn = await getConnection();
     var results =
         await conn.query('select * from Tarea where ID_Tarea = ?', [idTarea]);
-    return Tarea(results.first[0], results.first[1], results.first[2],
-        results.first[3], results.first[4]);
+    return Tarea(results.first[0].toString(), results.first[1], results.first[2].toString(),
+        results.first[3].toString(), results.first[4]);
   }
 
   Future<List<Tarea>> getAllTareas(String idCurso) async {
@@ -355,7 +356,8 @@ class DAO {
     var results =
         await conn.query('select * from Tarea where ID_Curso = ?', [idCurso]);
     for (var row in results) {
-      tareas.add(Tarea(row[0], row[1], row[2], row[3], row[4]));
+      tareas.add(Tarea(row[0].toString(), row[1], row[2].toString(),
+          row[3].toString(), row[4]));
     }
     return tareas;
   }
@@ -428,5 +430,6 @@ class DAO {
     for (var c in results) {
       cursos.add(c[0].toString() + " - " + c[1]);
     }
-    return cursos;}
+    return cursos;
+  }
 }

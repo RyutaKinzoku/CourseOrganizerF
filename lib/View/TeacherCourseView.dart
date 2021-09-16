@@ -1,10 +1,10 @@
 // ignore_for_file: file_names, prefer_const_constructors
 
+import 'package:course_organizer/View/CourseAssignment.dart';
 import 'package:course_organizer/View/CoursesList.dart';
 import 'package:course_organizer/View/StudentsCourseList.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:course_organizer/View/TeacherInfo.dart';
 import 'package:course_organizer/View/CourseChat.dart';
 
 class TeacherCourseView extends StatefulWidget {
@@ -64,9 +64,10 @@ class _TeacherCourseViewPage extends State<TeacherCourseView> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => CourseChat(
-                              title:
-                                  'Chat del curso ${widget.title.split(" ")[1]}',
-                            )),
+                        title:
+                            'Chat del curso ${widget.title.split(" ")[1]}',
+                      )
+                    ),
                   );
                 },
                 color: Colors.amber,
@@ -88,7 +89,7 @@ class _TeacherCourseViewPage extends State<TeacherCourseView> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => CoursesList(
+                        builder: (context) => CourseAssignment(
                               title:
                                   'Tareas del curso ${widget.title.split(" ")[1]}',
                             )),

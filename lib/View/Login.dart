@@ -69,24 +69,30 @@ class _MyHomePageState extends State<Login> {
                 style: TextStyle(
                   fontSize: 40,
                 )),
-            TextField(
-              onChanged: (text) {
-                email = text;
-              },
-              obscureText: false,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Correo',
+            Container(
+              margin: EdgeInsets.all(10),
+              child: TextField(
+                onChanged: (text) {
+                  email = text;
+                },
+                obscureText: false,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Correo',
+                ),
               ),
             ),
-            TextField(
-              onChanged: (text) {
-                password = text;
-              },
-              obscureText: true,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Contraseña',
+            Container(
+              margin: EdgeInsets.all(10),
+              child: TextField(
+                onChanged: (text) {
+                  password = text;
+                },
+                obscureText: true,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Contraseña',
+                ),
               ),
             ),
           ],
