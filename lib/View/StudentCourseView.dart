@@ -20,7 +20,7 @@ class _StudentCourseViewPage extends State<StudentCourseView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Normbre curso"),
+        title: Text(widget.title),
       ),
       body: Center(
         child: Column(
@@ -38,17 +38,19 @@ class _StudentCourseViewPage extends State<StudentCourseView> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => TeacherInfo(
-                              title:
-                                  'Información docente ${widget.title.split(" ")[1]}',
-                            )),
+                        title:
+                            'Información docente ${widget.title.split(" ")[1]}',
+                      )
+                    ),
                   );
                 },
                 color: Colors.amber,
                 child: Text('Docente',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20.0,
-                    )),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.0,
+                  )
+                ),
               ),
             ),
             Container(
@@ -63,17 +65,19 @@ class _StudentCourseViewPage extends State<StudentCourseView> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => CourseChat(
-                              title:
-                                  'Chat del curso ${widget.title.split(" ")[1]}',
-                            )),
+                        title:
+                            'Chat del curso ${widget.title.split(" ")[1]}',
+                      )
+                    ),
                   );
                 },
                 color: Colors.amber,
                 child: Text('Chat',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20.0,
-                    )),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.0,
+                  )
+                ),
               ),
             ),
             Container(
@@ -88,17 +92,19 @@ class _StudentCourseViewPage extends State<StudentCourseView> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => CoursesList(
-                              title:
-                                  'Tareas del curso ${widget.title.split(" ")[1]}',
-                            )),
+                        title:
+                          'Tareas del curso ${widget.title.split(" ")[1]}',
+                      )
+                    ),
                   );
                 },
                 color: Colors.amber,
                 child: Text('Tareas',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20.0,
-                    )),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.0,
+                  )
+                ),
               ),
             ),
             Container(
@@ -113,17 +119,19 @@ class _StudentCourseViewPage extends State<StudentCourseView> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => CoursesList(
-                              title:
-                                  'Noticias del curso ${widget.title.split(" ")[1]}',
-                            )),
+                        title:
+                            'Noticias del curso ${widget.title.split(" ")[1]}',
+                      )
+                    ),
                   );
                 },
                 color: Colors.amber,
                 child: Text('Noticias',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20.0,
-                    )),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.0,
+                  )
+                ),
               ),
             ),
           ],

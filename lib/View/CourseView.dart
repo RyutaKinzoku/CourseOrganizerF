@@ -100,44 +100,43 @@ class _CourseViewPage extends State<CourseView> {
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                  Container(),
-                    TextFormField(
-                      initialValue: snapshot.data.getIdCurso().toString(),
-                      onChanged: (text) {
-                        _idCurso = int.parse(text);
-                      },
-                      obscureText: false,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'ID del Curso',
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(),
+                      TextFormField(
+                        initialValue: snapshot.data.getIdCurso().toString(),
+                        onChanged: (text) {
+                          _idCurso = int.parse(text);
+                        },
+                        obscureText: false,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'ID del Curso',
+                        ),
                       ),
-                    ),
-                    TextFormField(
-                      initialValue: snapshot.data.getNombre(),
-                      onChanged: (text) {
-                        _nombre = text;
-                      },
-                      obscureText: false,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Nombre',
+                      TextFormField(
+                        initialValue: snapshot.data.getNombre(),
+                        onChanged: (text) {
+                          _nombre = text;
+                        },
+                        obscureText: false,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Nombre',
+                        ),
                       ),
-                    ),
-                    TextFormField(
-                      initialValue: snapshot.data.getGrado(),
-                      onChanged: (text) {
-                        _grado = text;
-                      },
-                      obscureText: false,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Grado',
+                      TextFormField(
+                        initialValue: snapshot.data.getGrado(),
+                        onChanged: (text) {
+                          _grado = text;
+                        },
+                        obscureText: false,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Grado',
+                        ),
                       ),
-                    ),
-                  ]
-                );
+                    ]);
               } else if (snapshot.hasError) {
                 return const Text('No se encontraron datos');
               } else {
@@ -168,8 +167,7 @@ class _CourseViewPage extends State<CourseView> {
                 ),
               ],
             ),
-          )
-        );
+          ));
     } else if (objetivo[0] == "Matrícula") {
       return Scaffold(
           appBar: AppBar(
@@ -199,11 +197,14 @@ class _CourseViewPage extends State<CourseView> {
                       itemCount: snapshot.data.length,
                       shrinkWrap: true,
                       itemBuilder: (BuildContext context, int index) {
-                        return Card(
-                          child: ListTile(
-                            title: Text(snapshot.data[index]),
-                          )
-                        );
+                        if (index > 0) {
+                          return Card(
+                            child: ListTile(
+                              title: Text(snapshot.data[index]),
+                            )
+                          );
+                        }
+                        return Card();
                       }
                     )
                   ]
@@ -238,8 +239,7 @@ class _CourseViewPage extends State<CourseView> {
                 ),
               ],
             ),
-          )
-        );
+          ));
     }
     return const SizedBox(); //Si no se cumple nada se retorna una pantalla en negro
   }

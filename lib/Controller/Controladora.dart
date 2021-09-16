@@ -133,10 +133,6 @@ class Controladora {
         cedula, nombre, primerApellido, segundoApellido, grado, email);
   }
 
-  List<String> getNombresEstudiantesCurso(int idCurso) {
-    return [];
-  }
-
   //Cursos
   void addCurso(String nombre, String grado, List<String> horario) {
     _manejoCursos.add(nombre, grado, horario);
@@ -243,5 +239,9 @@ class Controladora {
   void setTarea(
       String idTarea, String descripcion, String fechaEntrega, String titulo) {
     _manejoCursos.setTarea(idTarea, descripcion, fechaEntrega, titulo);
+  }
+
+  Future<List<String>> getNombresCursosEstudiante(String cedula) async {
+    return await _manejoCursos.getCursosEstudiante(cedula);
   }
 }

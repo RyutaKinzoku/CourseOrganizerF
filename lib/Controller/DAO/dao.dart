@@ -418,4 +418,15 @@ class DAO {
     }
     return results.first[0];
   }
+
+  Future<List<String>> getCursosEstudiante(String cedula) async {
+    List<String> cursos = [];
+    var conn = await getConnection();
+    var results = await conn.query(
+        'SELECT Curso.ID_Curso, Curso.nombre FROM Curso INNER JOIN EstudiantePorCurso ON Curso.ID_Curso = EstudiantePorCurso.ID_Curso INNER JOIN Estudiante ON EstudiantePorCurso.cedulaEstudiante = Estudiante.cedula where Estudiante.cedula = ?',
+        [cedula]);
+    for (var c in results) {
+      cursos.add(c[0].toString() + " - " + c[1]);
+    }
+    return cursos;}
 }

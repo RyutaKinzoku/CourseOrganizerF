@@ -18,7 +18,7 @@ class _StudentsCourseListPage extends State<StudentsCourseList> {
   var control = Controladora();
 
   Future<List<String>> _getEstudiantes(int idCurso) async {
-    return await control.getNombresEstudiantesCurso(idCurso);
+    return await control.getEstudiantesDelCurso(idCurso);
   }
 
   @override
