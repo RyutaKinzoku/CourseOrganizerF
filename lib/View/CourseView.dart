@@ -170,14 +170,14 @@ class _CourseViewPage extends State<CourseView> {
           ));
     } else if (objetivo[0] == "Matrícula") {
       return Scaffold(
-          appBar: AppBar(
-            title: Text(widget.title),
-          ),
-          body: FutureBuilder(
-            future: _getMiembros(int.parse(objetivo[1])),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (snapshot.hasData) {
-                return Column(
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: FutureBuilder(
+          future: _getMiembros(int.parse(objetivo[1])),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.hasData) {
+              return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     TextFormField(
@@ -191,55 +191,64 @@ class _CourseViewPage extends State<CourseView> {
                         labelText: 'Docente',
                       ),
                     ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      margin: const EdgeInsets.all(10),
+                      child: MaterialButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12)),
+                        minWidth: 100.0,
+                        height: 50.0,
+                        onPressed: () {},
+                        color: Colors.amber,
+                        child: const Text('Desasignar',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20.0,
+                            )),
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.centerRight,
+                      margin: const EdgeInsets.all(10),
+                      child: MaterialButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12)),
+                        minWidth: 100.0,
+                        height: 50.0,
+                        onPressed: () {},
+                        color: Colors.amber,
+                        child: const Text('Asignar',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20.0,
+                            )),
+                      ),
+                    ),
                     const Text("Estudiantes:"),
                     ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      itemCount: snapshot.data.length,
-                      shrinkWrap: true,
-                      itemBuilder: (BuildContext context, int index) {
-                        if (index > 0) {
-                          return Card(
-                            child: ListTile(
+                        scrollDirection: Axis.vertical,
+                        itemCount: snapshot.data.length,
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          if (index > 0) {
+                            return Card(
+                                child: ListTile(
                               title: Text(snapshot.data[index]),
-                            )
-                          );
-                        }
-                        return Card();
-                      }
-                    )
-                  ]
-                );
-              } else if (snapshot.hasError) {
-                return const Text('No se encontraron datos');
-              } else {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            },
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerFloat,
-          floatingActionButton: Container(
-            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                FloatingActionButton(
-                  heroTag: "btn1",
-                  onPressed: _removeCurso,
-                  tooltip: 'Increment',
-                  child: const Icon(Icons.delete),
-                ),
-                FloatingActionButton(
-                  heroTag: "btn2",
-                  onPressed: _setCurso,
-                  tooltip: 'Increment',
-                  child: const Icon(Icons.save),
-                ),
-              ],
-            ),
-          ));
+                            ));
+                          }
+                        })
+                  ]);
+            } else if (snapshot.hasError) {
+              return const Text('No se encontraron datos');
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
+        ),
+      );
     }
     return const SizedBox(); //Si no se cumple nada se retorna una pantalla en negro
   }
