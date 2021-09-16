@@ -316,7 +316,7 @@ class DAO {
     var results =
         await conn.query('select * from Noticia where ID_Curso = ?', [idCurso]);
     for (var row in results) {
-      noticias.add(Noticia(row[0], row[1], row[2]));
+      noticias.add(Noticia(row[0].toString(), row[1], row[2].toString()));
     }
     return noticias;
   }

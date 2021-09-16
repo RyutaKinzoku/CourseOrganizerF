@@ -6,16 +6,16 @@ import 'package:course_organizer/View/AssignmentView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class CourseAssignment extends StatefulWidget {
-  const CourseAssignment({Key? key, required this.title}) : super(key: key);
+class CourseAssignments extends StatefulWidget {
+  const CourseAssignments({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  State<CourseAssignment> createState() => _CourseAssignmentPage();
+  State<CourseAssignments> createState() => _CourseAssignmentsPage();
 }
 
-class _CourseAssignmentPage extends State<CourseAssignment> {
+class _CourseAssignmentsPage extends State<CourseAssignments> {
   var control = Controladora();
   String cedula = "";
 
