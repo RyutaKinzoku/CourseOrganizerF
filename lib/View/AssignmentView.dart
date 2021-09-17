@@ -29,13 +29,19 @@ class _AssignmentViewPage extends State<AssignmentView> {
         future: _getTarea(widget.title.split(" ")[1]),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(snapshot.data.getTitulo()),
-                Text(snapshot.data.getDescripcion()),
-                Text(snapshot.data.getFechaEntrega()),
-              ],
+            return Align(
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                    Card(child:Text(snapshot.data.getTitulo(),
+                      style: const TextStyle(fontSize: 20.0))),
+                    Card(child: Text(snapshot.data.getDescripcion(),
+                      style: const TextStyle(fontSize: 20.0)),),
+                    Card(child: Text(snapshot.data.getFechaEntrega(),
+                      style: const TextStyle(fontSize: 20.0)),),
+                ],
+              ),
             );
           } else if (snapshot.hasError) {
             return const Text('No se encontraron datos');

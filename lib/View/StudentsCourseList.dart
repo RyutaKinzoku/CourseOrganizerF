@@ -42,7 +42,7 @@ class _StudentsCourseListPage extends State<StudentsCourseList> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => StudentView(
-                                title: 'Editar ${snapshot.data[index].split(" - ")[0]}',
+                                title: 'Estudiante ${snapshot.data[index].split(" - ")[0]}',
                           )
                         )
                       );
@@ -60,20 +60,6 @@ class _StudentsCourseListPage extends State<StudentsCourseList> {
           }
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const StudentView(
-                    title: 'Agregar Estudiante',
-              )
-            )
-          );
-        },
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), 
     );
   }
 }
