@@ -30,14 +30,17 @@ class _CourseViewPage extends State<CourseView> {
 
   void _addCurso() {
     control.addCurso(_nombre, _grado, _horario);
+    Navigator.pop(context);
   }
 
   void _setCurso() {
     control.setCurso(_idCurso, _nombre, _grado, _horario);
+    Navigator.pop(context);
   }
 
   void _removeCurso() {
     control.removeCurso(_idCurso);
+    Navigator.pop(context);
   }
 
   @override
@@ -52,16 +55,6 @@ class _CourseViewPage extends State<CourseView> {
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                TextFormField(
-                  onChanged: (text) {
-                    _idCurso = int.parse(text);
-                  },
-                  obscureText: false,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'ID del Curso',
-                  ),
-                ),
                 TextFormField(
                   onChanged: (text) {
                     _nombre = text;
@@ -99,15 +92,16 @@ class _CourseViewPage extends State<CourseView> {
             future: _getCurso(objetivo[1]),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
+                _idCurso = snapshot.data.getIdCurso();
+                _nombre = snapshot.data.getNombre();
+                _grado = snapshot.data.getGrado();
                 return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Container(),
                       TextFormField(
                         initialValue: snapshot.data.getIdCurso().toString(),
-                        onChanged: (text) {
-                          _idCurso = int.parse(text);
-                        },
+                        readOnly: true,
                         obscureText: false,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),

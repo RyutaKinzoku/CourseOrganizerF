@@ -221,8 +221,12 @@ class DAO {
 
   Future<void> removeCurso(int idCurso) async {
     var conn = await getConnection();
-    conn.query('delete from Curso where ID_Curso = ?', [idCurso]);
+    conn.query('delete from Tarea where ID_Curso = ?', [idCurso]);
+    conn.query('delete from Mensaje where ID_Curso = ?', [idCurso]);
+    conn.query('delete from Noticia where ID_Curso = ?', [idCurso]);
     conn.query('delete from CursoPorDia where ID_Curso = ?', [idCurso]);
+    conn.query('delete from EstudiantePorCurso where ID_Curso = ?', [idCurso]);
+    conn.query('delete from Curso where ID_Curso = ?', [idCurso]);
   }
 
   Future<Curso> getCurso(String idCurso) async {
