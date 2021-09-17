@@ -16,9 +16,14 @@ class TeacherInfo extends StatefulWidget {
 
 class _TeacherInfoPage extends State<TeacherInfo> {
   var control = Controladora();
+  String calificacion = "", cedulaDocente = "";
 
   Future<Docente> _getDocente(String idCurso) async {
     return await control.getDocenteDelCurso(idCurso);
+  }
+
+  Future<void> calificar() async {
+    control.calificarDocente(cedulaDocente, await control.getCedulaUsuario(control.getEmailActual()), int.parse(calificacion));
   }
 
   @override
@@ -26,27 +31,50 @@ class _TeacherInfoPage extends State<TeacherInfo> {
     return Scaffold(
       appBar: AppBar(title: Text(widget.title)),
       body: FutureBuilder(
-        future: _getDocente(widget.title.split(" ")[2]),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(snapshot.data.getCedula()),
-                Text('${snapshot.data.getNombre()} ${snapshot.data.getPrimerApellido()} ${snapshot.data.getSegundoApellido()} '),
-                Text(snapshot.data.getEmail()),
-                Text(snapshot.data.getCalificacion().toString()),
-              ],
-            );
-          } else if (snapshot.hasError) {
-            return const Text('No se encontraron datos');
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        }
-      ),
+          future: _getDocente(widget.title.split(" ")[2]),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.hasData) {
+              return Align(
+                alignment: Alignment.center,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(snapshot.data.getCedula(),
+                        style: const TextStyle(fontSize: 20.0)),
+                    Text(
+                        '${snapshot.data.getNombre()} ${snapshot.data.getPrimerApellido()} ${snapshot.data.getSegundoApellido()}',
+                        style: const TextStyle(fontSize: 20.0)),
+                    Text(snapshot.data.getEmail(),
+                        style: const TextStyle(fontSize: 20.0)),
+                    Text(
+                        "Calificación: ${snapshot.data.getCalificacion().toString()}",
+                        style: const TextStyle(fontSize: 20.0)),
+                    TextField(
+                      onChanged: (text) {
+                        calificacion = text;
+                        cedulaDocente = snapshot.data.getCedula();
+                      },
+                    ),
+                    MaterialButton(
+                      onPressed: calificar,
+                      color: Colors.amber,
+                      child: const Text('Calificar',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20.0,
+                    )),
+                    )
+                  ],
+                ),
+              );
+            } else if (snapshot.hasError) {
+              return const Text('No se encontraron datos');
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          }),
     );
   }
 }

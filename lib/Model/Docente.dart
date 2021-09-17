@@ -1,8 +1,9 @@
 // ignore_for_file: file_names, prefer_final_fields
 
+
 class Docente {
   String _cedula, _nombre, _primerApellido, _segundoApellido, _email;
-  int _calificacion;
+  double _calificacion;
 
   Docente(this._cedula, this._nombre, this._primerApellido,
       this._segundoApellido, this._calificacion, this._email);
@@ -27,7 +28,7 @@ class Docente {
     return _email;
   }
 
-  int getCalificacion() {
+  double getCalificacion() {
     return _calificacion;
   }
 }

@@ -91,13 +91,12 @@ class _CourseChatPage extends State<CourseChat> {
               } else {
                 return const Center(child: CircularProgressIndicator());
               }
-              return const SizedBox(); //Si no se cumple nada se retorna una pantalla en negro
             },
           ),
           Align(
             alignment: Alignment.bottomLeft,
             child: Container(
-              padding: EdgeInsets.only(left: 10, bottom: 10, top: 10),
+              padding: const EdgeInsets.only(left: 10, bottom: 10, top: 10),
               height: 60,
               width: double.infinity,
               color: Colors.white,
@@ -117,7 +116,7 @@ class _CourseChatPage extends State<CourseChat> {
                   const SizedBox(width: 15),
                   FloatingActionButton(
                     onPressed: _addMensaje,
-                    child: Icon(Icons.send, color: Colors.white, size: 18),
+                    child: const Icon(Icons.send, color: Colors.white, size: 18),
                     backgroundColor: Colors.amber,
                     elevation: 0,
                   )

@@ -55,8 +55,8 @@ class Controladora {
     return await _manejoDocentes.get(cedula);
   }
 
-  void calificarDocente(String cedula, int calificacion) {
-    _manejoDocentes.calificar(cedula, calificacion);
+  void calificarDocente(String cedulaDocente, String cedulaEstudiante, int calificacion) {
+    _manejoDocentes.calificar(cedulaDocente, cedulaEstudiante, calificacion);
   }
 
   Future<List<Docente>> getDocentes() async {

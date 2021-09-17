@@ -1,5 +1,4 @@
 // ignore_for_file: file_names, prefer_final_fields
-import 'package:course_organizer/Model/Noticia.dart';
 
 class Curso {
   int _idCurso;

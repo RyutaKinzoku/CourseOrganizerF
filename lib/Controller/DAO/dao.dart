@@ -94,19 +94,25 @@ class DAO {
     var results = await conn.query(
         'SELECT d.cedula, d.nombre, d.primerApellido, d.segundoApellido, AVG(c.valor), d.email FROM Docente d INNER JOIN Calificacion c ON c.cedula_docente = d.cedula WHERE d.cedula = ?',
         [cedula]);
-    return Docente(
-        results.first[0],
-        results.first[1],
-        results.first[2],
-        results.first[3],
-        results.first[4],
-        results.first[5]); //Cambiar calificacion
+    return Docente(results.first[0], results.first[1], results.first[2],
+        results.first[3], results.first[4], results.first[5]);
   }
 
-  Future<void> calificarDocente(String cedula, int calificacion) async {
+  Future<void> calificarDocente(
+      String cedulaDocente, String cedulaEstudiante, int calificacion) async {
     var conn = await getConnection();
-    conn.query('update Docente set calificacion = ? where `cedula` = ?;',
-        [calificacion, cedula]);
+    var results = await conn.query(
+        'select * from Calificacion where cedula_docente = ? and cedula_estudiante = ?',
+        [cedulaDocente, cedulaEstudiante]);
+    if (results.isEmpty) {
+      conn.query(
+          'insert into Calificacion (valor, cedula_docente, cedula_estudiante) values(?, ?, ?)',
+          [calificacion, cedulaDocente, cedulaEstudiante]);
+    } else {
+      conn.query(
+          'update Calificacion set valor = ? where cedula_docente = ? and cedula_estudiante = ?',
+          [calificacion, cedulaDocente, cedulaEstudiante]);
+    }
   }
 
   Future<List<Docente>> getDocentes() async {
@@ -114,8 +120,7 @@ class DAO {
     var conn = await getConnection();
     var results = await conn.query('select * from Docente');
     for (var row in results) {
-      docentes.add(Docente(
-          row[0], row[1], row[2], row[3], 0, row[4])); //Cambiar calificación
+      docentes.add(Docente(row[0], row[1], row[2], row[3], 0.0, row[4]));
     }
     return docentes;
   }
@@ -355,7 +360,6 @@ class DAO {
   }
 
   Future<Tarea> getTarea(String idTarea) async {
-    print(idTarea);
     var conn = await getConnection();
     var results =
         await conn.query('select * from Tarea where ID_Tarea = ?', [idTarea]);
@@ -451,12 +455,11 @@ class DAO {
   }
 
   Future<Docente> getDocenteDelCurso(String idCurso) async {
-    print(idCurso);
     var conn = await getConnection();
     var results = await conn.query(
-        'select Docente.cedula, Docente.nombre, Docente.primerApellido, Docente.segundoApellido, Docente.email FROM Curso INNER JOIN Docente ON Curso.cedulaDocente = Docente.cedula WHERE Curso.ID_Curso = ?',
+        'select d.cedula, d.nombre, d.primerApellido, d.segundoApellido, AVG(ca.valor), d.email FROM Curso cu INNER JOIN Docente d ON cu.cedulaDocente = d.cedula INNER JOIN Calificacion ca ON d.cedula = ca.cedula_docente WHERE cu.ID_Curso = ? GROUP BY d.cedula',
         [idCurso]);
     return Docente(results.first[0], results.first[1], results.first[2],
-        results.first[3], 0, results.first[4]);
+        results.first[3], results.first[4], results.first[5]);
   }
 }

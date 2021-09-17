@@ -28,8 +28,8 @@ class ManejoDocentes {
     return await _db.getDocente(cedula);
   }
 
-  void calificar(String cedula, int calificacion) {
-    _db.calificarDocente(cedula, calificacion);
+  void calificar(String cedulaDocente, String cedulaEstudiante, int calificacion) {
+    _db.calificarDocente(cedulaDocente, cedulaEstudiante, calificacion);
   }
 
   Future<List<Docente>> getAll() async {
