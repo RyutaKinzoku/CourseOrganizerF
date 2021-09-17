@@ -32,25 +32,23 @@ class _StudentsListPage extends State<StudentsList> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
-              itemCount: snapshot.data.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Card(
-                  child: ListTile(
-                    title: Text(snapshot.data[index]),
-                    onTap: (){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => StudentView(
-                                title: 'Editar ${snapshot.data[index].split(" - ")[0]}',
-                          )
-                        )
-                      );
-                    }
-                  )
-                );
-              }
-            );
+                itemCount: snapshot.data.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Card(
+                      child: ListTile(
+                          title: Text(snapshot.data[index]),
+                          onTap: () {
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(
+                                    builder: (context) => StudentView(
+                                          title:
+                                              'Editar ${snapshot.data[index].split(" - ")[0]}',
+                                        )))
+                                .then((_) {
+                              setState(() {});
+                            });
+                          }));
+                });
           } else if (snapshot.hasError) {
             return const Text('No se encontraron datos');
           } else {
@@ -61,19 +59,17 @@ class _StudentsListPage extends State<StudentsList> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
+        onPressed: () {
           Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const StudentView(
-                    title: 'Agregar Estudiante',
-              )
-            )
-          );
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const StudentView(
+                        title: 'Agregar Estudiante',
+                      )));
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
-      ), 
+      ),
     );
   }
 }
