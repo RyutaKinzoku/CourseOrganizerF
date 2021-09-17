@@ -4,6 +4,7 @@ import 'package:course_organizer/Controller/Controladora.dart';
 import 'package:course_organizer/Model/Noticia.dart';
 import 'package:course_organizer/Model/Tarea.dart';
 import 'package:course_organizer/View/AssignmentView.dart';
+import 'package:course_organizer/View/NewsForm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -50,6 +51,18 @@ class _CourseNewsPage extends State<CourseNews> {
             );
           }
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => NewsForm(
+                        title: 'Agregar Noticia ${widget.title.split(" ")[3]}',
+                      )));
+        },
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
       ),
     );
   }

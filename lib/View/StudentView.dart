@@ -27,12 +27,6 @@ class _StudentViewPage extends State<StudentView> {
     return await control.getEstudiante(cedula);
   }
 
-  void _addEstudiante() {
-    control.addEstudiante(
-        cedula, nombre, primerApellido, segundoApellido, grado, email);
-    Navigator.pop(context);
-  }
-
   @override
   Widget build(BuildContext context) {
     List<String> objetivo = widget.title.split(" ");
