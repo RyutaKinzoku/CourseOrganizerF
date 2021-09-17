@@ -91,10 +91,16 @@ class DAO {
 
   Future<Docente> getDocente(String cedula) async {
     var conn = await getConnection();
-    var results =
-        await conn.query('select * from Docente where cedula = ?', [cedula]);
-    return Docente(results.first[0], results.first[1], results.first[2],
-        results.first[3], 0, results.first[4]); //Cambiar calificacion
+    var results = await conn.query(
+        'SELECT d.cedula, d.nombre, d.primerApellido, d.segundoApellido, AVG(c.valor), d.email FROM Docente d INNER JOIN Calificacion c ON c.cedula_docente = d.cedula WHERE d.cedula = ?',
+        [cedula]);
+    return Docente(
+        results.first[0],
+        results.first[1],
+        results.first[2],
+        results.first[3],
+        results.first[4],
+        results.first[5]); //Cambiar calificacion
   }
 
   Future<void> calificarDocente(String cedula, int calificacion) async {
