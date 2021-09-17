@@ -15,7 +15,11 @@ class TeacherView extends StatefulWidget {
 }
 
 class _TeacherViewPage extends State<TeacherView> {
-  String cedula = "", nombre = "", primerApellido = "", segundoApellido = "", email = "";
+  String cedula = "",
+      nombre = "",
+      primerApellido = "",
+      segundoApellido = "",
+      email = "";
   var control = Controladora();
 
   Future<Docente> _getDocente(String cedula) async {
@@ -24,14 +28,17 @@ class _TeacherViewPage extends State<TeacherView> {
 
   void _addDocente() {
     control.addDocente(cedula, nombre, primerApellido, segundoApellido, email);
+    Navigator.pop(context);
   }
 
   void _setDocente() {
     control.setDocente(cedula, nombre, primerApellido, segundoApellido, email);
+    Navigator.pop(context);
   }
 
   void _removeDocente() {
     control.removeDocente(cedula);
+    Navigator.pop(context);
   }
 
   @override
@@ -113,15 +120,18 @@ class _TeacherViewPage extends State<TeacherView> {
             future: _getDocente(objetivo[1]),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
+                cedula = snapshot.data.getCedula();
+                nombre = snapshot.data.getNombre();
+                primerApellido = snapshot.data.getPrimerApellido();
+                segundoApellido = snapshot.data.getSegundoApellido();
+                email = snapshot.data.getEmail();
                 return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Container(),
                       TextFormField(
                         initialValue: snapshot.data.getCedula(),
-                        onChanged: (text) {
-                          cedula = text;
-                        },
+                        readOnly: true,
                         obscureText: false,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),

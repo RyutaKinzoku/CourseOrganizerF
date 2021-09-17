@@ -63,17 +63,17 @@ class DAO {
         'insert into Persona (cedula, nombre, primerApellido, segundoApellido, email) values (?, ?, ?, ?, ?)',
         [cedula, nombre, primerApellido, segundoApellido, email]);
     conn.query(
-        'insert into Docente (cedula, nombre, primerApellido, segundoApellido, calificacion, email) values (?, ?, ?, ?, ?, ?)',
-        [cedula, nombre, primerApellido, segundoApellido, 0, email]);
+        'insert into Docente (cedula, nombre, primerApellido, segundoApellido, email) values (?, ?, ?, ?, ?)',
+        [cedula, nombre, primerApellido, segundoApellido, email]);
   }
 
   Future<void> removeDocente(String cedula) async {
     var conn = await getConnection();
     conn.query('delete from Docente where cedula = ?', [cedula]);
-    var email =
-        conn.query('select email from Persona where cedula = ?', [cedula]);
+    var email = await conn
+        .query('select email from Persona where cedula = ?', [cedula]);
     conn.query('delete from Persona where cedula = ?', [cedula]);
-    conn.query('delete from Usuario where email = ?', [email]);
+    conn.query('delete from Usuario where email = ?', [email.first[0]]);
   }
 
   Future<void> assignDocente(String cedulaDocente, String idCurso) async {
@@ -94,7 +94,7 @@ class DAO {
     var results =
         await conn.query('select * from Docente where cedula = ?', [cedula]);
     return Docente(results.first[0], results.first[1], results.first[2],
-        results.first[3], 0, results.first[5]); //Cambiar calificacion
+        results.first[3], 0, results.first[4]); //Cambiar calificacion
   }
 
   Future<void> calificarDocente(String cedula, int calificacion) async {
@@ -141,17 +141,17 @@ class DAO {
         'insert into Persona (cedula, nombre, primerApellido, segundoApellido, email) values (?, ?, ?, ?, ?)',
         [cedula, nombre, primerApellido, segundoApellido, email]);
     conn.query(
-        'insert into Estudiante (cedula, nombre, primerApellido, segundoApellido, grado, email) values (?, ?, ?, ?, ?, ?)',
+        'insert into Estudiante (cedula, nombre, primerApellido, segundoApellido, gradoEscolar, email) values (?, ?, ?, ?, ?, ?)',
         [cedula, nombre, primerApellido, segundoApellido, grado, email]);
   }
 
   Future<void> removeEstudiante(String cedula) async {
     var conn = await getConnection();
     conn.query('delete from Estudiante where cedula = ?', [cedula]);
-    var email =
-        conn.query('select email from Persona where cedula = ?', [cedula]);
+    var email = await conn
+        .query('select email from Persona where cedula = ?', [cedula]);
     conn.query('delete from Persona where cedula = ?', [cedula]);
-    conn.query('delete from Usuario where email = ?', [email]);
+    conn.query('delete from Usuario where email = ?', [email.first[0]]);
   }
 
   Future<void> assignEstudiante(String cedulaEstudiante, String idCurso) async {

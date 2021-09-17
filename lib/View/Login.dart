@@ -102,7 +102,7 @@ class _MyHomePageState extends State<Login> {
         onPressed: _login,
         tooltip: 'Increment',
         child: const Icon(Icons.login),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }

@@ -15,7 +15,12 @@ class StudentView extends StatefulWidget {
 }
 
 class _StudentViewPage extends State<StudentView> {
-  String cedula = "", nombre = "", primerApellido = "", segundoApellido = "", email = "", grado = "";
+  String cedula = "",
+      nombre = "",
+      primerApellido = "",
+      segundoApellido = "",
+      email = "",
+      grado = "";
   var control = Controladora();
 
   Future<Estudiante> _getEstudiante(String cedula) async {
@@ -25,15 +30,18 @@ class _StudentViewPage extends State<StudentView> {
   void _addEstudiante() {
     control.addEstudiante(
         cedula, nombre, primerApellido, segundoApellido, grado, email);
+    Navigator.pop(context, true);
   }
 
   void _setEstudiante() {
     control.setEstudiante(
         cedula, nombre, primerApellido, segundoApellido, email, grado);
+    Navigator.pop(context);
   }
 
   void _removeEstudiante() {
     control.removeEstudiante(cedula);
+    Navigator.pop(context);
   }
 
   @override
@@ -125,16 +133,20 @@ class _StudentViewPage extends State<StudentView> {
             future: _getEstudiante(objetivo[1]),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
+                cedula = snapshot.data.getCedula();
+                nombre = snapshot.data.getNombre();
+                primerApellido = snapshot.data.getPrimerApellido();
+                segundoApellido = snapshot.data.getSegundoApellido();
+                email = snapshot.data.getEmail();
+                grado = snapshot.data.getGrado();
                 return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Container(),
                       TextFormField(
                         initialValue: snapshot.data.getCedula(),
-                        onChanged: (text) {
-                          cedula = text;
-                        },
                         obscureText: false,
+                        readOnly: true,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Cédula',
