@@ -45,7 +45,9 @@ class _StudentsListPage extends State<StudentsList> {
                                               'Editar ${snapshot.data[index].split(" - ")[0]}',
                                         )))
                                 .then((_) {
-                              setState(() {});
+                              setState(() {
+                                _getEstudiantes();
+                              });
                             });
                           }));
                 });
