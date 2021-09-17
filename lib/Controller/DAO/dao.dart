@@ -284,13 +284,13 @@ class DAO {
   Future<List<Mensaje>> getAllMensajes(String idCurso) async {
     List<Mensaje> mensajes = [];
     var conn = await getConnection();
-    var results =
-        await conn.query('select * from Mensaje where ID_Curso = ?', [idCurso]);
+    var results = await conn.query(
+        'SELECT Mensaje.ID_Mensaje, Mensaje.contenido, Mensaje.fechaEnvio, Mensaje.ID_Curso, Mensaje.emisor, Persona.nombre, Persona.primerApellido, Persona.segundoApellido FROM Mensaje INNER JOIN Persona ON Mensaje.emisor = Persona.email WHERE Mensaje.ID_Curso = ?',
+        [idCurso]);
     for (var row in results) {
       mensajes.add(Mensaje(row[0].toString(), row[1], row[2].toString(),
-          row[3].toString(), row[4]));
+          row[3].toString(), row[4], row[5] + " " + row[6] + " " + row[7]));
     }
-    print(mensajes);
     return mensajes;
   }
 

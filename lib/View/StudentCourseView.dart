@@ -1,5 +1,7 @@
 // ignore_for_file: file_names, prefer_const_constructors
 
+import 'package:course_organizer/View/CourseAssignments.dart';
+import 'package:course_organizer/View/CourseNews.dart';
 import 'package:course_organizer/View/CoursesList.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -91,7 +93,7 @@ class _StudentCourseViewPage extends State<StudentCourseView> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => CoursesList(
+                        builder: (context) => CourseAssignments(
                         title:
                           'Tareas del curso ${widget.title.split(" ")[1]}',
                       )
@@ -118,7 +120,7 @@ class _StudentCourseViewPage extends State<StudentCourseView> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => CoursesList(
+                        builder: (context) => CourseNews(
                         title:
                             'Noticias del curso ${widget.title.split(" ")[1]}',
                       )

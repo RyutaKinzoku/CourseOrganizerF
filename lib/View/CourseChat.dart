@@ -19,9 +19,7 @@ class CourseChat extends StatefulWidget {
 class _CourseChatPage extends State<CourseChat> {
   var control = Controladora();
   Future<List<Mensaje>> _getMensajes(String idCurso) async {
-    var a = await control.getMensajes(idCurso);
-    //print(a);
-    return a;
+    return await control.getMensajes(idCurso);
   }
 
   @override
@@ -31,20 +29,58 @@ class _CourseChatPage extends State<CourseChat> {
       body: Stack(
         children: <Widget>[
           FutureBuilder(
-            future: _getMensajes(widget.title.split(' ')[3]),
+            future: _getMensajes(widget.title.split(" ")[3]),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
-                ListView.builder(
+                return ListView.builder(
                   itemCount: snapshot.data.length,
                   shrinkWrap: true,
                   padding: const EdgeInsets.only(top: 10, bottom: 10),
                   physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return Container(
-                      padding: const EdgeInsets.only(
-                          left: 16, right: 16, top: 10, bottom: 10),
-                      child: Text(snapshot.data[index].getIdMensaje()),
-                    );
+                  itemBuilder: (BuildContext context, int index) {
+                    if (snapshot.data[index].getEmailEmisor() == control.getEmailActual()){
+                      return Container(
+                        padding: const EdgeInsets.only(
+                            left: 16, right: 16, top: 10, bottom: 10),
+                        child: Align(
+                          alignment: Alignment.topRight,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.amber
+                            ),
+                            padding: const EdgeInsets.all(16),
+                            child: Text(snapshot.data[index].getContenido()),
+                          ),
+                        ),
+                      );
+                    } else {
+                      return Container(
+                        padding: const EdgeInsets.only(
+                            left: 16, right: 16, top: 10, bottom: 10),
+                        child: Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.grey.shade200
+                            ),
+                            padding: const EdgeInsets.all(16),
+                            child: Column(
+                              children: <Widget>[
+                                Text(
+                                  snapshot.data[index].getEmisor(), 
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold
+                                  ),
+                                  ),
+                                Text(snapshot.data[index].getContenido()),
+                              ]
+                            ),
+                          ),
+                        ),
+                      );
+                    }
                   },
                 );
               } else if (snapshot.hasError) {
