@@ -30,13 +30,13 @@ class _StudentViewPage extends State<StudentView> {
   void _addEstudiante() {
     control.addEstudiante(
         cedula, nombre, primerApellido, segundoApellido, grado, email);
-    Navigator.pop(context, true);
+    Navigator.pop(context);
   }
 
   void _setEstudiante() {
     control.setEstudiante(
         cedula, nombre, primerApellido, segundoApellido, email, grado);
-    Navigator.pop(context);
+    //Navigator.pop(context);
   }
 
   void _removeEstudiante() {
@@ -232,7 +232,10 @@ class _StudentViewPage extends State<StudentView> {
                 ),
                 FloatingActionButton(
                   heroTag: "btn2",
-                  onPressed: _setEstudiante,
+                  onPressed: () {
+                    _setEstudiante();
+                    Navigator.pop(context);
+                  },
                   tooltip: 'Increment',
                   child: const Icon(Icons.save),
                 ),

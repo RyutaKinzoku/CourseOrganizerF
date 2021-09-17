@@ -5,24 +5,31 @@ import 'package:course_organizer/View/StudentView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class StudentsList extends StatefulWidget {
-  const StudentsList({Key? key, required this.title}) : super(key: key);
+class StudentsListView extends StatefulWidget {
+  const StudentsListView({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  State<StudentsList> createState() => _StudentsListPage();
+  State<StudentsListView> createState() => _StudentsListViewPage();
 }
 
-class _StudentsListPage extends State<StudentsList> {
+class _StudentsListViewPage extends State<StudentsListView> {
   var control = Controladora();
+  var cedulaEstudiante = "";
+  var idCurso = "";
 
   Future<List<String>> _getEstudiantes() async {
     return await control.getNombresEstudiantes();
   }
 
+  void asignarEstudiante() {
+    control.assignEstudiante(cedulaEstudiante, idCurso);
+  }
+
   @override
   Widget build(BuildContext context) {
+    idCurso = widget.title.split(" ")[1];
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -34,15 +41,22 @@ class _StudentsListPage extends State<StudentsList> {
             return ListView.builder(
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {
+                  cedulaEstudiante = snapshot.data[index].split(" - ")[0];
                   return Card(
                       child: ListTile(
                           title: Text(snapshot.data[index]),
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => StudentView(
-                                      title:
-                                          'Editar ${snapshot.data[index].split(" - ")[0]}',
-                                    )));
+                            Navigator.pop(context);
+                            /*
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => StudentView(
+                                title: 'Editar ${}',
+                          )
+                        )
+                      );
+                      */
                           }));
                 });
           } else if (snapshot.hasError) {

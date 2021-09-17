@@ -2,6 +2,7 @@
 
 import 'package:course_organizer/Controller/Controladora.dart';
 import 'package:course_organizer/Model/Curso.dart';
+import 'package:course_organizer/View/StudentsListView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -17,7 +18,7 @@ class CourseView extends StatefulWidget {
 class _CourseViewPage extends State<CourseView> {
   int _idCurso = -1;
   String _nombre = "", _grado = "";
-  List<String> _horario = [];
+  String _horario = "";
   var control = Controladora();
 
   Future<Curso> _getCurso(String idCurso) async {
@@ -29,12 +30,12 @@ class _CourseViewPage extends State<CourseView> {
   }
 
   void _addCurso() {
-    control.addCurso(_nombre, _grado, _horario);
+    control.addCurso(_nombre, _grado, _horario.split(","));
     Navigator.pop(context);
   }
 
   void _setCurso() {
-    control.setCurso(_idCurso, _nombre, _grado, _horario);
+    control.setCurso(_idCurso, _nombre, _grado, _horario.split(","));
     Navigator.pop(context);
   }
 
@@ -73,6 +74,16 @@ class _CourseViewPage extends State<CourseView> {
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Grado',
+                  ),
+                ),
+                TextFormField(
+                  onChanged: (text) {
+                    _horario = text;
+                  },
+                  obscureText: false,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Horario',
                   ),
                 ),
               ]),
@@ -248,7 +259,13 @@ class _CourseViewPage extends State<CourseView> {
                             borderRadius: BorderRadius.circular(12)),
                         minWidth: 100.0,
                         height: 50.0,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const StudentsListView(
+                                      title: "Estudiantes")));
+                        },
                         color: Colors.amber,
                         child: const Text('Agregar',
                             style: TextStyle(

@@ -287,7 +287,7 @@ class DAO {
       String emisor) async {
     var conn = await getConnection();
     conn.query(
-        'insert into Mensaje (contenido, fechaEnvio, idCurso, emisor) values (?, ?, ?, ?)',
+        'insert into Mensaje (contenido, fechaEnvio, ID_Curso, emisor) values (?, ?, ?, ?)',
         [contenido, fechaEnvio, idCurso, emisor]);
   }
 

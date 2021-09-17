@@ -18,8 +18,15 @@ class CourseChat extends StatefulWidget {
 
 class _CourseChatPage extends State<CourseChat> {
   var control = Controladora();
+  String contenido = "";
+
   Future<List<Mensaje>> _getMensajes(String idCurso) async {
     return await control.getMensajes(idCurso);
+  }
+
+  void _addMensaje() {
+    control.addMensaje(contenido, DateTime.now().toString(),
+        widget.title.split(" ")[3], control.getEmailActual());
   }
 
   @override
@@ -38,7 +45,8 @@ class _CourseChatPage extends State<CourseChat> {
                   padding: const EdgeInsets.only(top: 10, bottom: 10),
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (BuildContext context, int index) {
-                    if (snapshot.data[index].getEmailEmisor() == control.getEmailActual()){
+                    if (snapshot.data[index].getEmailEmisor() ==
+                        control.getEmailActual()) {
                       return Container(
                         padding: const EdgeInsets.only(
                             left: 16, right: 16, top: 10, bottom: 10),
@@ -46,9 +54,8 @@ class _CourseChatPage extends State<CourseChat> {
                           alignment: Alignment.topRight,
                           child: Container(
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.amber
-                            ),
+                                borderRadius: BorderRadius.circular(20),
+                                color: Colors.amber),
                             padding: const EdgeInsets.all(16),
                             child: Text(snapshot.data[index].getContenido()),
                           ),
@@ -62,21 +69,17 @@ class _CourseChatPage extends State<CourseChat> {
                           alignment: Alignment.bottomLeft,
                           child: Container(
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.grey.shade200
-                            ),
+                                borderRadius: BorderRadius.circular(20),
+                                color: Colors.grey.shade200),
                             padding: const EdgeInsets.all(16),
-                            child: Column(
-                              children: <Widget>[
-                                Text(
-                                  snapshot.data[index].getEmisor(), 
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold
-                                  ),
-                                  ),
-                                Text(snapshot.data[index].getContenido()),
-                              ]
-                            ),
+                            child: Column(children: <Widget>[
+                              Text(
+                                snapshot.data[index].getEmisor(),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(snapshot.data[index].getContenido()),
+                            ]),
                           ),
                         ),
                       );
@@ -101,16 +104,19 @@ class _CourseChatPage extends State<CourseChat> {
               child: Row(
                 children: <Widget>[
                   const SizedBox(width: 15),
-                  const Expanded(
+                  Expanded(
                       child: TextField(
-                    decoration: InputDecoration(
-                        hintText: "Haz una pregunta...",
-                        hintStyle: TextStyle(color: Colors.black54),
-                        border: InputBorder.none),
+                        onChanged: (text) {
+                          contenido = text;
+                        },
+                        decoration: const InputDecoration(
+                            hintText: "Haz una pregunta...",
+                            hintStyle: TextStyle(color: Colors.black54),
+                            border: InputBorder.none),
                   )),
                   const SizedBox(width: 15),
                   FloatingActionButton(
-                    onPressed: () {},
+                    onPressed: _addMensaje,
                     child: Icon(Icons.send, color: Colors.white, size: 18),
                     backgroundColor: Colors.amber,
                     elevation: 0,
