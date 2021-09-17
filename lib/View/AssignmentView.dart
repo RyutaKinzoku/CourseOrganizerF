@@ -16,9 +16,19 @@ class AssignmentView extends StatefulWidget {
 
 class _AssignmentViewPage extends State<AssignmentView> {
   var control = Controladora();
+  String descripcion = "", fechaEntrega = "", titulo = "";
 
   Future<Tarea> _getTarea(String idTarea) async {
     return await control.getTarea(idTarea);
+  }
+
+  void _removeTarea() {
+    control.removeTarea(widget.title.split(" ")[1]);
+  }
+
+  void _setTarea() {
+    control.setTarea(
+        widget.title.split(" ")[1], descripcion, fechaEntrega, titulo);
   }
 
   @override
@@ -34,12 +44,27 @@ class _AssignmentViewPage extends State<AssignmentView> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                    Card(child:Text(snapshot.data.getTitulo(),
-                      style: const TextStyle(fontSize: 20.0))),
-                    Card(child: Text(snapshot.data.getDescripcion(),
-                      style: const TextStyle(fontSize: 20.0)),),
-                    Card(child: Text(snapshot.data.getFechaEntrega(),
-                      style: const TextStyle(fontSize: 20.0)),),
+                  TextFormField(
+                    initialValue: snapshot.data.getTitulo(),
+                    style: const TextStyle(fontSize: 20.0),
+                    onChanged: (text) {
+                      titulo = text;
+                    },
+                  ),
+                  TextFormField(
+                    initialValue: snapshot.data.getDescripcion(),
+                    style: const TextStyle(fontSize: 20.0),
+                    onChanged: (text) {
+                      descripcion = text;
+                    },
+                  ),
+                  TextFormField(
+                    initialValue: snapshot.data.getFechaEntrega(),
+                    style: const TextStyle(fontSize: 20.0),
+                    onChanged: (text) {
+                      fechaEntrega = text;
+                    },
+                  ),
                 ],
               ),
             );
@@ -51,6 +76,27 @@ class _AssignmentViewPage extends State<AssignmentView> {
             );
           }
         },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Container(
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            FloatingActionButton(
+              heroTag: "btn1",
+              onPressed: _removeTarea,
+              tooltip: 'Increment',
+              child: const Icon(Icons.delete),
+            ),
+            FloatingActionButton(
+              heroTag: "btn2",
+              onPressed: _setTarea,
+              tooltip: 'Increment',
+              child: const Icon(Icons.save),
+            ),
+          ],
+        ),
       ),
     );
   }

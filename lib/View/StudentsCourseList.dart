@@ -42,7 +42,7 @@ class _StudentsCourseListPage extends State<StudentsCourseList> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => StudentView(
-                                title: 'Estudiante ${snapshot.data[index].split(" - ")[0]}',
+                                title: 'Ver ${snapshot.data[index].split(" - ")[0]}',
                           )
                         )
                       );
