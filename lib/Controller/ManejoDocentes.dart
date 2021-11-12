@@ -28,7 +28,8 @@ class ManejoDocentes {
     return await _db.getDocente(cedula);
   }
 
-  void calificar(String cedulaDocente, String cedulaEstudiante, int calificacion) {
+  void calificar(
+      String cedulaDocente, String cedulaEstudiante, int calificacion) {
     _db.calificarDocente(cedulaDocente, cedulaEstudiante, calificacion);
   }
 
